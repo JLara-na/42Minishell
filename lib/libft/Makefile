@@ -6,7 +6,7 @@
 #    By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/13 17:02:15 by jlara-na          #+#    #+#              #
-#    Updated: 2024/06/22 01:10:33 by jlara-na         ###   ########.fr        #
+#    Updated: 2024/07/05 19:39:05 by jlara-na         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,15 @@ FILES_C =	ft_isalpha.c				\
 			ft_lstmap_bonus.c			\
 			ft_swap.c					\
 			get_next_line.c				\
+			ft_tree_create_node.c		\
+			ft_tree_del_node.c			\
+			ft_tree_insert_l.c			\
+			ft_tree_insert_r.c			\
+			ft_tree_post_order.c		\
+			ft_tree_pre_order.c			\
+			ft_tree_in_order.c			\
+			ft_tree_size.c				\
+			ft_chrpos.c					\
 
 FILES_O = $(FILES_C:.c=.o)
 

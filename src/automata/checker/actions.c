@@ -6,11 +6,11 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:18:52 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/06/28 00:48:23 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/05 20:15:03 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../../inc/minishell.h"
 
 /* ************************************************************************** */
 /*    This file will contain all the custom actions refered to the project    */
@@ -36,8 +36,3 @@ void	negative_alone(t_automata *a, void *data)
 		parsing_error(a, NULL);
 }
 */
-void	funcion(t_automata *a, void *data)
-{
-	(void)a;
-	(void)data;
-}

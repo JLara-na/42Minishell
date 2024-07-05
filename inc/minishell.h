@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/06/28 01:33:25 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/05 22:07:53 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,6 @@ typedef enum e_std
 	STDERR
 }	t_std;
 
-typedef enum e_states
-{
-	EMPTY,
-	PIPE,
-	LESS,
-	HEREDOC,
-	GREAT,
-	APPEND,
-	AMPLESAN,
-	DOUBLEQ,
-	SINGLEQ,
-	INVALID,
-	SPACEB,
-	SPACEW,
-	COMMANDS
-}	t_states;
-
 # ifndef M_SHELL_PROMPT
 #  define M_SHELL_PROMPT "$minishell> "
 # endif
@@ -90,15 +73,24 @@ typedef enum e_states
 
 //-----------------------------DEFINING STRUCTURES----------------------------//
 
+typedef struct s_token
+{
+	char		*line;		//Comandos con sus argumentos y redirecciones
+	char		*cmd;		//El comando
+	char		**args;		//Los argumentos (args[0] es el propio comando)
+	char		**infiles;	
+	char		**outfiles;
+}	t_token;
+
 typedef struct s_shell
 {
-	t_automata	a;
-	t_automata	b;
-	char		**tokens;
+	t_automata	checker;	//automata para comprobar la validez
+	t_automata	tokenizer;	//automata para tokenizar
+	t_tree		*token_tree;	//arbol que contiene las lineas entre pipes
 	char		**local_env;
-	char		**data_dirs;
-	//pid_t		c_pid;
-}				t_shell;
+	char		**path_var;
+
+}	t_shell;
 
 //----------------------------------FUNCTIONS---------------------------------//
 

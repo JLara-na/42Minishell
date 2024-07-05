@@ -6,13 +6,13 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:18:39 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/06/28 00:37:57 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/05 19:56:05 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../../inc/minishell.h"
 
-void	alphabet_init(t_automata *a)
+void	checker_alphabet_init(t_automata *a)
 {
 	a->alphabet = malloc(10 * (sizeof(char *)));
 	a->alphabet[0] = ft_strdup(" ");
@@ -25,21 +25,7 @@ void	alphabet_init(t_automata *a)
 	a->alphabet[7] = NULL;
 }
 
-void	free_alph_err(t_automata *a)
-{
-	int	i;
-
-	i = -1;
-	while (a->alphabet[++i])
-		free(a->alphabet[i]);
-	free(a->alphabet);
-	i = -1;
-	while (a->errors[++i])
-		free(a->errors[i]);
-	free(a->errors);
-}
-
-void	errors_init(t_automata *a)
+void	checker_errors_init(t_automata *a)
 {
 	a->errors = malloc(12 * (sizeof(char *)));
 	a->errors[0] = ft_strdup("Empty string.");
@@ -57,13 +43,23 @@ void	errors_init(t_automata *a)
 	a->errorlen = 10;
 }
 
-void	sactions_init(t_automata *a)
+void	checker_sactions_init(t_automata *a)
 {
 	(void)a;
-	//a->fsa[PIPE] = pipe_found;
 }
 
-void	tactions_init(t_automata *a)
+void	checker_tactions_init(t_automata *a)
 {
 	(void)a;
+}
+
+void	checker_automata_init(t_automata *a, void *data)
+{
+	ft_bzero(a, sizeof(t_automata));
+	a->data = data;
+	checker_alphabet_init(a);
+	checker_errors_init(a);
+	checker_sactions_init(a);
+	checker_tactions_init(a);
+	a->get_state = checker_get_state;
 }

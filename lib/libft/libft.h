@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 16:07:21 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/06/04 21:26:28 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/05 19:53:52 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
+typedef struct s_tree
+{
+	void			*data;
+	struct s_tree	*left;
+	struct s_tree	*right;
+}	t_tree;
 
 void	ft_swap(void *a, void *b);
 int		ft_isalpha(int j);
@@ -70,6 +77,9 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+int		ft_chrpos(char *str, char c);
+
+//LIST FT
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
@@ -79,6 +89,18 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+//GNL
 char	*get_next_line(int fd);
+
+//TREE FT
+t_tree	*ft_tree_create_node(void	*content);
+void	ft_tree_del_node(t_tree *node, void (*del)(void*));
+t_tree	*ft_tree_insert_l(t_tree	*root_node, void	*content);
+t_tree	*ft_tree_insert_r(t_tree	*root_node, void	*content);
+void	ft_tree_post_order(t_tree *node, void (*ft)(void*));
+void	ft_tree_pre_order(t_tree *node, void (*ft)(void*));
+void	ft_tree_in_order(t_tree *node, void (*ft)(void*));
+int		ft_tree_size(t_tree	*node);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/04 21:24:07 by jlara-na          #+#    #+#              #
-#    Updated: 2024/06/27 23:58:46 by jlara-na         ###   ########.fr        #
+#    Updated: 2024/07/05 19:52:43 by jlara-na         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ NAME		:=	minishell
 SRC_DIR			:=		src/
 SUB_DIR_1		:=		main/
 SUB_DIR_2		:=		automata/
+SUB_DIR_2_0		:=		automata/checker/
+SUB_DIR_2_1		:=		automata/tokenizer/
 SUB_DIR_3		:=		built_ins/
 SUB_DIR_4		:=		signal_handler/
 OBJ_DIR			:=		obj/
@@ -94,19 +96,21 @@ CUSTOM_4		=		\033[38:5:101m
 
 #---------SRC OBJ DEP INC---------
 
-SRC_FILES		=		$(SUB_DIR_1)main		\
-						$(SUB_DIR_1)get_env		\
-						$(SUB_DIR_2)automata	\
-						$(SUB_DIR_2)actions		\
-						$(SUB_DIR_2)ainit		\
-						$(SUB_DIR_3)export		\
-						$(SUB_DIR_3)unset		\
-						$(SUB_DIR_3)echo		\
-						$(SUB_DIR_3)exit		\
-						$(SUB_DIR_3)pwd			\
-						$(SUB_DIR_3)env			\
-						$(SUB_DIR_3)cd			\
-						$(SUB_DIR_4)signals		\
+SRC_FILES		=		$(SUB_DIR_1)main				\
+						$(SUB_DIR_1)get_env				\
+						$(SUB_DIR_2)automata			\
+						$(SUB_DIR_2_0)actions			\
+						$(SUB_DIR_2_0)ainit				\
+						$(SUB_DIR_2_1)actions			\
+						$(SUB_DIR_2_1)ainit				\
+						$(SUB_DIR_3)export				\
+						$(SUB_DIR_3)unset				\
+						$(SUB_DIR_3)echo				\
+						$(SUB_DIR_3)exit				\
+						$(SUB_DIR_3)pwd					\
+						$(SUB_DIR_3)env					\
+						$(SUB_DIR_3)cd					\
+						$(SUB_DIR_4)signals				\
 
 						
 
@@ -137,14 +141,16 @@ $(NAME):	$(OBJ) makelibs
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCS) | $(OBJF)
 			@echo "$(CLEAN_LINE)$(YELLOW_BL)$(YELLOW)COMPILING:		⚙$<$(RETURN)"
 			@$(CC) $(CFLAGS) -MMD -c $< -o $@
-			@sleep 0.05
+#			@sleep 0.02
 
 $(OBJF):
 			@mkdir -p $(OBJ_DIR)
 			@mkdir -p $(OBJ_DIR)$(SUB_DIR_1)
 			@mkdir -p $(OBJ_DIR)$(SUB_DIR_2)
+			@mkdir -p $(OBJ_DIR)$(SUB_DIR_2_0)
+			@mkdir -p $(OBJ_DIR)$(SUB_DIR_2_1)
 			@mkdir -p $(OBJ_DIR)$(SUB_DIR_3)
-			@mkdir -p $(OBJ_DIR)$(SUB_DIR_4)
+			@mkdir -p $(OBJ_DIR)$(SUB_DIR_4)			
 
 $(LIBFT):
 			@make -C $(LFT_DIR)
