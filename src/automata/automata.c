@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 19:45:56 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/05 21:26:24 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:54:33 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //	0	1	2	3	4	5	6	7	Column characters
 //	\s	|	<	>	&	"	'	^
 
-int	checker_get_state(int i, int j)
+int	splitter_get_state(int i, int j)
 {
 	const int	states[][8] = {
 	{0, 9, 2, 9, 9, 7, 8, 12},	// 0  Empty
@@ -38,7 +38,7 @@ int	checker_get_state(int i, int j)
 
 //	0	1	2	3	4	Column characters
 //	\s	|	"	'	^
-
+/*
 int	tokenizer_get_state(int i, int j)
 {
 	const int	states[][8] = {
@@ -50,6 +50,25 @@ int	tokenizer_get_state(int i, int j)
 	{5, 4, 1, 2, 7}, // 5 Spaces without words
 	{6, 3, 1, 2, 7}, // 6 Spaces between words
 	{6, 3, 1, 2, 7}, // 7 Not operators
+	};
+
+	return (states[i][j]);
+}*/
+
+int	tokenizer_get_state(int i, int j)
+{
+	const int	states[][8] = {
+	{0, 1, 2, 6, 8, 10},	// 0 Empty input
+	{1, 5, 1, 1, 1, 1},		// 1 Open double quotes
+	{2, 2, 5, 2, 2, 2},		// 2 Open single quotes
+	{3, 3, 3, 3, 3, 3},		// 3 Invalid input
+	{4, 1, 2, 6, 8, 10},	// 4 Spaces without words
+	{5, 1, 2, 6, 8, 10},	// 5 Spaces between words
+	{4, 1, 2, 7, 8, 10},	// 6 lower found
+	{4, 1, 2, 3, 3, 10},	// 7 heredoc
+	{4, 1, 2, 3, 9, 10},	// 8 greater found
+	{4, 1, 2, 3, 3, 10},	// 9 append
+	{5, 1, 2, 6, 8, 10},	// 10 Not operators
 	};
 
 	return (states[i][j]);

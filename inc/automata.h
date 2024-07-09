@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:35:05 by jvasquez          #+#    #+#             */
-/*   Updated: 2024/07/05 21:27:26 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:28:45 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ typedef struct s_automata
 int			evaluate(t_automata *a);
 void		free_alph_err(t_automata *a);
 
-//CHECKER FT
+//splitter FT
 
-int			checker_get_state(int i, int j);
-void		checker_alphabet_init(t_automata *a);
-void		checker_errors_init(t_automata *a);
-void		checker_sactions_init(t_automata *a);
-void		checker_tactions_init(t_automata *a);
-void		checker_automata_init(t_automata *a, void *data);
+int			splitter_get_state(int i, int j);
+void		splitter_alphabet_init(t_automata *a);
+void		splitter_errors_init(t_automata *a);
+void		splitter_sactions_init(t_automata *a);
+void		splitter_tactions_init(t_automata *a);
+void		splitter_automata_init(t_automata *a, void *data);
 
 
 //TOKENIZER FT
@@ -61,22 +61,22 @@ void		get_token(t_automata *a, void *data);
 
 //STATES ENUMS
 
-typedef enum e_ch_states
+typedef enum e_SP_states
 {
-	CH_EMPTY,
-	CH_PIPE,
-	CH_LESS,
-	CH_HEREDOC,
-	CH_GREAT,
-	CH_APPEND,
-	CH_AMPLESAN,
-	CH_DOUBLEQ,
-	CH_SINGLEQ,
-	CH_INVALID,
-	CH_SPACEB,
-	CH_SPACEW,
-	CH_WORDS
-}	t_ch_states;
+	SP_EMPTY,
+	SP_PIPE,
+	SP_LESS,
+	SP_HEREDOC,
+	SP_GREAT,
+	SP_APPEND,
+	SP_AMPLESAN,
+	SP_DOUBLEQ,
+	SP_SINGLEQ,
+	SP_INVALID,
+	SP_SPACEB,
+	SP_SPACEW,
+	SP_WORDS
+}	t_SP_states;
 
 typedef enum e_tk_states
 {

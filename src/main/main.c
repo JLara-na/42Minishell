@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/05 23:07:32 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:48:08 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,64 +67,60 @@ void	get_tokens(t_shell *shell)
 	return ;
 }*/
 
-void	tokenizer(t_shell *shell)
+void	init_hell(t_shell	*shell, char **envp)
 {
-	int	a_state;
-
-	tokenizer_automata_init(&shell->tokenizer, shell);
-	shell->tokenizer.str = shell->checker.str;
-	a_state = evaluate(&shell->tokenizer);
-	get_token(&shell->tokenizer, shell);
-	printf(BLUE "%d\n" DEF_COLOR, a_state);
-	free_alph_err(&shell->tokenizer);
+	printf(CLEAR HEADER);
+	ft_bzero(shell, sizeof(t_shell));
+	get_env(shell, envp);
 }
 
-int	check_valid(t_shell	*shell)
+void	free_token(void	*data)
 {
-	int	a_state;
+	t_token	*token;
 
-	checker_automata_init(&shell->checker, shell);
-	shell->checker.str = readline(CUSTOM_2 M_SHELL_PROMPT DEF_COLOR);
-	add_history(shell->checker.str);
-	a_state = evaluate(&shell->checker);
-	if (a_state > shell->checker.errorlen)
-		return (free_alph_err(&shell->checker), 1);
-	else
+	token = data;
+	free(token->line);
+	free(token);
+}
+
+void	free_tree(t_shell	*shell, t_tree	*tree)
+{
+	if (tree != NULL)
 	{
-		printf(RED "%s\n" DEF_COLOR, shell->checker.errors[a_state]);
-		return (free_alph_err(&shell->checker), 0);
+		free_tree(shell, tree->left);
+		free_token(tree->data);
+		free_tree(shell, tree->right);
+		free(tree);
+		shell->token_tree = NULL;
 	}
 }
 
 void	print_tree(void *data)
 {
-	
-	// ME QUEDE AQUI, HAY QUE IMPRIMIR EL ARBOL PARA VER SI SE HA GUARDADO CORRECTAMENTE
+	t_token	*token;
+
+	token = (t_token *)data;
+	printf("token line-> [%s]\n", token->line);
 }
 
 void	main_loop(t_shell	*shell)
 {
+
 	while (1)
 	{
-		if (check_valid(shell))
+		if (split_in_token_lines(shell))
 		{
-			tokenizer(shell);
-			ft_tree_in_order(shell->token_tree, print_tree); // <---- LO IMPRIMO AQUI
-
-
-
-
-			if (ft_strnstr(shell->checker.str, "exit", ft_strlen(shell->checker.str))
-			&& ft_strlen(shell->checker.str) == 4)
+			//tokenizer(shell);
+			if (ft_strnstr(shell->splitter.str, "exit", ft_strlen(shell->splitter.str))
+				&& ft_strlen(shell->splitter.str) == 4)
 				break ;
 
-
-
-
 		}
-		free(shell->checker.str);
+		ft_tree_in_order(shell->token_tree, print_tree);
+		free_tree(shell, shell->token_tree);
+		free(shell->splitter.str);
 	}
-	free(shell->checker.str);
+	free(shell->splitter.str);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -133,8 +129,7 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
-	printf(CLEAR HEADER);
-	get_env(&shell, envp);
+	init_hell(&shell, envp);
 	main_loop(&shell);
 	free_env(&shell);
 	printf(MSG_BYE);

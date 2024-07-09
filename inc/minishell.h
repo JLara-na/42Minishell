@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/05 22:07:53 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:39:51 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,10 @@ typedef struct s_token
 
 typedef struct s_shell
 {
-	t_automata	checker;	//automata para comprobar la validez
+	t_automata	splitter;	//automata para comprobar la validez
 	t_automata	tokenizer;	//automata para tokenizar
 	t_tree		*token_tree;	//arbol que contiene las lineas entre pipes
+	char		*readline;
 	char		**local_env;
 	char		**path_var;
 
@@ -99,6 +100,9 @@ typedef struct s_shell
 void	get_env(t_shell	*shell, char **env);
 
 //Parsing functions
+
+int		split_in_token_lines(t_shell	*shell);
+void	tokenizer(t_shell *shell);
 
 //Built-in functions
 

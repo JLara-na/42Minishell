@@ -6,7 +6,7 @@
 #    By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/04 21:24:07 by jlara-na          #+#    #+#              #
-#    Updated: 2024/07/05 19:52:43 by jlara-na         ###   ########.fr        #
+#    Updated: 2024/07/09 23:34:36 by jlara-na         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME		:=	minishell
 SRC_DIR			:=		src/
 SUB_DIR_1		:=		main/
 SUB_DIR_2		:=		automata/
-SUB_DIR_2_0		:=		automata/checker/
+SUB_DIR_2_0		:=		automata/splitter/
 SUB_DIR_2_1		:=		automata/tokenizer/
 SUB_DIR_3		:=		built_ins/
 SUB_DIR_4		:=		signal_handler/
@@ -96,21 +96,23 @@ CUSTOM_4		=		\033[38:5:101m
 
 #---------SRC OBJ DEP INC---------
 
-SRC_FILES		=		$(SUB_DIR_1)main				\
-						$(SUB_DIR_1)get_env				\
-						$(SUB_DIR_2)automata			\
-						$(SUB_DIR_2_0)actions			\
-						$(SUB_DIR_2_0)ainit				\
-						$(SUB_DIR_2_1)actions			\
-						$(SUB_DIR_2_1)ainit				\
-						$(SUB_DIR_3)export				\
-						$(SUB_DIR_3)unset				\
-						$(SUB_DIR_3)echo				\
-						$(SUB_DIR_3)exit				\
-						$(SUB_DIR_3)pwd					\
-						$(SUB_DIR_3)env					\
-						$(SUB_DIR_3)cd					\
-						$(SUB_DIR_4)signals				\
+SRC_FILES		=		$(SUB_DIR_1)main					\
+						$(SUB_DIR_1)get_env					\
+						$(SUB_DIR_2)automata				\
+						$(SUB_DIR_2_0)actions				\
+						$(SUB_DIR_2_0)ainit					\
+						$(SUB_DIR_2_0)split_in_token_lines	\
+						$(SUB_DIR_2_1)actions				\
+						$(SUB_DIR_2_1)ainit					\
+						$(SUB_DIR_2_1)tokenizer				\
+						$(SUB_DIR_3)export					\
+						$(SUB_DIR_3)unset					\
+						$(SUB_DIR_3)echo					\
+						$(SUB_DIR_3)exit					\
+						$(SUB_DIR_3)pwd						\
+						$(SUB_DIR_3)env						\
+						$(SUB_DIR_3)cd						\
+						$(SUB_DIR_4)signals					\
 
 						
 

@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:18:39 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/05 21:38:43 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:35:57 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,6 @@ void	tokenizer_sactions_init(t_automata *a)
 void	tokenizer_tactions_init(t_automata *a)
 {
 	(void)a;
-	a->fta[TK_PIPE][TK_SPACEB] = get_token;
-	a->fta[TK_PIPE][TK_WORDS] = get_token;
-	a->fta[TK_PIPE][TK_DOUBLEQ] = get_token;
-	a->fta[TK_PIPE][TK_SINGLEQ] = get_token;
-	a->fta[TK_SPACEB][TK_PIPE] = get_token;
-	a->fta[TK_SPACEW][TK_PIPE] = get_token;
-	a->fta[TK_WORDS][TK_PIPE] = get_token;
 }
 
 void	tokenizer_automata_init(t_automata *a, void *data)
