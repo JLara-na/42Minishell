@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 19:45:56 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/09 23:54:33 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/13 22:40:33 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,7 @@ int	splitter_get_state(int i, int j)
 	return (states[i][j]);
 }
 
-//	0	1	2	3	4	Column characters
-//	\s	|	"	'	^
-/*
-int	tokenizer_get_state(int i, int j)
-{
-	const int	states[][8] = {
-	{0, 3, 1, 2, 7}, // 0 Empty input
-	{1, 1, 6, 1, 1}, // 1 Open double quotes
-	{2, 2, 2, 6, 2}, // 2 Open single quotes
-	{5, 4, 1, 2, 7}, // 3 Pipe open
-	{4, 4, 4, 4, 4}, // 4 Invalid input
-	{5, 4, 1, 2, 7}, // 5 Spaces without words
-	{6, 3, 1, 2, 7}, // 6 Spaces between words
-	{6, 3, 1, 2, 7}, // 7 Not operators
-	};
-
-	return (states[i][j]);
-}*/
+//   \s, ", ', <, >, ^
 
 int	tokenizer_get_state(int i, int j)
 {

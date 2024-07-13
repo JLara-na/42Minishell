@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/09 23:39:51 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/14 00:49:35 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef enum e_std
 
 typedef struct s_token
 {
+	int			append;
 	char		*line;		//Comandos con sus argumentos y redirecciones
 	char		*cmd;		//El comando
 	char		**args;		//Los argumentos (args[0] es el propio comando)
@@ -102,7 +103,7 @@ void	get_env(t_shell	*shell, char **env);
 //Parsing functions
 
 int		split_in_token_lines(t_shell	*shell);
-void	tokenizer(t_shell *shell);
+void	tokenize_node(void	*token_ptr, void	*shell_ptr);
 
 //Built-in functions
 

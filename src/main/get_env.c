@@ -6,12 +6,11 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 23:13:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/03 19:55:37 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/13 22:38:00 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
 
 void	get_path_var(t_shell	*shell)
 {
@@ -24,13 +23,6 @@ void	get_path_var(t_shell	*shell)
 			break ;
 	}
 	shell->path_var = ft_split(shell->local_env[i] + ft_strlen("PATH="), ':');
-	/*
-	//IMPRIMIR LOS PATHS
-	i = -1;
-	if (shell->path_var)
-		while (shell->path_var[++i])
-			printf("%s\n", shell->path_var[i]);
-	*/
 }
 
 void	free_env(t_shell	*shell)
@@ -46,7 +38,6 @@ void	free_env(t_shell	*shell)
 		free(shell->path_var[i]);
 	free(shell->path_var);
 }
-
 
 void	get_env(t_shell	*shell, char **env)
 {
@@ -64,5 +55,4 @@ void	get_env(t_shell	*shell, char **env)
 	}
 	shell->local_env[i] = NULL;
 	get_path_var(shell);
-
 }

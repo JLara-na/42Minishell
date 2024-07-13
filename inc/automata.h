@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:35:05 by jvasquez          #+#    #+#             */
-/*   Updated: 2024/07/09 23:28:45 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/14 00:39:04 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void		splitter_sactions_init(t_automata *a);
 void		splitter_tactions_init(t_automata *a);
 void		splitter_automata_init(t_automata *a, void *data);
 
-
 //TOKENIZER FT
 
 int			tokenizer_get_state(int i, int j);
@@ -58,10 +57,12 @@ void		tokenizer_automata_init(t_automata *a, void *data);
 //ACTIONS
 
 void		get_token(t_automata *a, void *data);
+void		set_infile(t_automata	*a, void	*data);
+void		set_outfile(t_automata	*a, void	*data);
 
 //STATES ENUMS
 
-typedef enum e_SP_states
+typedef enum e_sp_states
 {
 	SP_EMPTY,
 	SP_PIPE,
@@ -76,17 +77,20 @@ typedef enum e_SP_states
 	SP_SPACEB,
 	SP_SPACEW,
 	SP_WORDS
-}	t_SP_states;
+}	t_sp_states;
 
 typedef enum e_tk_states
 {
 	TK_EMPTY,
 	TK_DOUBLEQ,
 	TK_SINGLEQ,
-	TK_PIPE,
 	TK_INVALID,
 	TK_SPACEB,
 	TK_SPACEW,
+	TK_LESS,
+	TK_HEREDOC,
+	TK_GREAT,
+	TK_APPEND,
 	TK_WORDS
 }	t_tk_states;
 

@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/09 23:48:08 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/14 00:49:16 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	free_tree(t_shell	*shell, t_tree	*tree)
 		shell->token_tree = NULL;
 	}
 }
-
+//---------------------- TREE FTS-------------------------
 void	print_tree(void *data)
 {
 	t_token	*token;
@@ -102,6 +102,7 @@ void	print_tree(void *data)
 	token = (t_token *)data;
 	printf("token line-> [%s]\n", token->line);
 }
+//--------------------------------------------------------
 
 void	main_loop(t_shell	*shell)
 {
@@ -110,7 +111,7 @@ void	main_loop(t_shell	*shell)
 	{
 		if (split_in_token_lines(shell))
 		{
-			//tokenizer(shell);
+			ft_tree_in_order_arg(shell->token_tree, tokenize_node, shell);
 			if (ft_strnstr(shell->splitter.str, "exit", ft_strlen(shell->splitter.str))
 				&& ft_strlen(shell->splitter.str) == 4)
 				break ;
@@ -121,6 +122,7 @@ void	main_loop(t_shell	*shell)
 		free(shell->splitter.str);
 	}
 	free(shell->splitter.str);
+	free_tree(shell, shell->token_tree);
 }
 
 int	main(int ac, char **av, char **envp)

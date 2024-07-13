@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:18:39 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/09 23:35:57 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/14 00:48:34 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,28 @@
 
 void	tokenizer_alphabet_init(t_automata *a)
 {
-	a->alphabet = malloc(5 * (sizeof(char *)));
+	a->alphabet = malloc(6 * (sizeof(char *)));
 	a->alphabet[0] = ft_strdup(" ");
-	a->alphabet[1] = ft_strdup("|");
-	a->alphabet[2] = ft_strdup("\"");
-	a->alphabet[3] = ft_strdup("\'");
-	a->alphabet[4] = NULL;
+	a->alphabet[1] = ft_strdup("\"");
+	a->alphabet[2] = ft_strdup("\'");
+	a->alphabet[3] = ft_strdup("<");
+	a->alphabet[4] = ft_strdup(">");
+	a->alphabet[5] = NULL;
 }
 
 void	tokenizer_errors_init(t_automata *a)
 {
-	a->errors = malloc(6 * (sizeof(char *)));
+	a->errors = malloc(5 * (sizeof(char *)));
 	a->errors[0] = ft_strdup("Empty string.");
 	a->errors[1] = ft_strdup("\" Open");
 	a->errors[2] = ft_strdup("\' Open");
-	a->errors[3] = ft_strdup("Pipe Open");
-	a->errors[4] = ft_strdup("Invalid Input");
-	a->errors[5] = NULL;
-	a->errorlen = 5;
+	a->errors[3] = ft_strdup("Invalid Input");
+	a->errors[4] = NULL;
+	a->errorlen = 4;
 }
+
+//a->fsa[TK_LESS] = set_infile;
+//a->fsa[TK_GREAT] = set_outfile;
 
 void	tokenizer_sactions_init(t_automata *a)
 {
@@ -42,6 +45,13 @@ void	tokenizer_sactions_init(t_automata *a)
 void	tokenizer_tactions_init(t_automata *a)
 {
 	(void)a;
+	// CONTINUAR CON LAS ACCIONES AQUI TAMBIEN
+	a->fta[TK_EMPTY][TK_LESS] = set_infile;
+	a->fta[TK_SPACEW][TK_LESS] = set_infile;
+	a->fta[TK_WORDS][TK_LESS] = set_infile;
+	a->fta[TK_EMPTY][TK_GREAT] = set_outfile;
+	a->fta[TK_SPACEW][TK_GREAT] = set_outfile;
+	a->fta[TK_WORDS][TK_GREAT] = set_outfile;
 }
 
 void	tokenizer_automata_init(t_automata *a, void *data)

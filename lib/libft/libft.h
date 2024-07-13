@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 16:07:21 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/05 19:53:52 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/13 22:35:54 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ t_tree	*ft_tree_insert_r(t_tree	*root_node, void	*content);
 void	ft_tree_post_order(t_tree *node, void (*ft)(void*));
 void	ft_tree_pre_order(t_tree *node, void (*ft)(void*));
 void	ft_tree_in_order(t_tree *node, void (*ft)(void*));
+void	ft_tree_in_order_arg(t_tree *n, void (*ft)(void*, void*), void	*arg);
 int		ft_tree_size(t_tree	*node);
 
 #endif
