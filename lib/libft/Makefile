@@ -6,7 +6,7 @@
 #    By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/13 17:02:15 by jlara-na          #+#    #+#              #
-#    Updated: 2024/07/05 19:39:05 by jlara-na         ###   ########.fr        #
+#    Updated: 2024/07/15 22:49:23 by jlara-na         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,8 @@ FILES_C =	ft_isalpha.c				\
 			ft_tree_in_order.c			\
 			ft_tree_size.c				\
 			ft_chrpos.c					\
+			ft_add_to_sarray.c			\
+			ft_free_sarray.c			\
 
 FILES_O = $(FILES_C:.c=.o)
 

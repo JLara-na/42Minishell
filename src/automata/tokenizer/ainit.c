@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:18:39 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/14 00:48:34 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/17 00:28:15 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,14 @@ void	tokenizer_tactions_init(t_automata *a)
 	a->fta[TK_EMPTY][TK_LESS] = set_infile;
 	a->fta[TK_SPACEW][TK_LESS] = set_infile;
 	a->fta[TK_WORDS][TK_LESS] = set_infile;
-	a->fta[TK_EMPTY][TK_GREAT] = set_outfile;
-	a->fta[TK_SPACEW][TK_GREAT] = set_outfile;
-	a->fta[TK_WORDS][TK_GREAT] = set_outfile;
+	a->fta[TK_GREAT][TK_SPACEB] = set_outfile;
+	a->fta[TK_GREAT][TK_WORDS] = set_outfile;
+	a->fta[TK_GREAT][TK_DOUBLEQ] = set_outfile;
+	a->fta[TK_GREAT][TK_SINGLEQ] = set_outfile;
+	a->fta[TK_APPEND][TK_SPACEB] = set_outfile;
+	a->fta[TK_APPEND][TK_WORDS] = set_outfile;
+	a->fta[TK_APPEND][TK_DOUBLEQ] = set_outfile;
+	a->fta[TK_APPEND][TK_SINGLEQ] = set_outfile;
 }
 
 void	tokenizer_automata_init(t_automata *a, void *data)

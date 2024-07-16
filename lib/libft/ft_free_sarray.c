@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   ft_free_sarray.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/09 21:15:44 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/15 22:05:37 by jlara-na         ###   ########.fr       */
+/*   Created: 2024/07/15 22:45:59 by jlara-na          #+#    #+#             */
+/*   Updated: 2024/07/15 22:50:55 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/minishell.h"
+#include "libft.h"
 
-void	tokenize_node(void	*token_ptr, void	*shell_ptr)
+void	ft_free_sarray(char **array)
 {
-	t_shell	*shell;
-	t_token	*token;
+	int	i;
 
-	shell = (t_shell *)shell_ptr;
-	token = (t_token *)token_ptr;
-	if (ft_strlen(token->line) == 1 && ft_strchr(token->line, '|'))
+	if (!array)
 		return ;
-	tokenizer_automata_init(&shell->tokenizer, token);
-	shell->tokenizer.str = token->line;
-	evaluate(&shell->tokenizer);
-	free_alph_err(&shell->tokenizer);
+	i = 0;
+	while (array[i])
+	{
+		if (array[i])
+		{
+			free(array[i]);
+			array[i++] = NULL;
+		}
+	}
+	free(array);
+	array = NULL;
 }

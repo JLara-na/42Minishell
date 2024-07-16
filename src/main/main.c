@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/14 00:49:16 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/16 22:57:03 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,6 @@ void	prueba(void)
 	printf("x : %d\n", x);
 }
 */
-/*
-void	get_tokens(t_shell *shell)
-{
-	int	i;
-
-	i = -1;
-	shell->tokens = ft_split(shell->checker.str, '|');
-	printf("tokens:\n");
-	while (shell->tokens[++i])
-		printf("[%s]\n", shell->tokens[i]);
-	i = -1;
-	while (shell->tokens[++i])
-		free(shell->tokens[i]);
-	free(shell->tokens);
-	return ;
-}*/
 
 void	init_hell(t_shell	*shell, char **envp)
 {
@@ -80,6 +64,10 @@ void	free_token(void	*data)
 
 	token = data;
 	free(token->line);
+	if (token->outfiles)
+		ft_free_sarray(token->outfiles);
+	if (token->infiles)
+		ft_free_sarray(token->infiles);
 	free(token);
 }
 
@@ -98,9 +86,13 @@ void	free_tree(t_shell	*shell, t_tree	*tree)
 void	print_tree(void *data)
 {
 	t_token	*token;
+	int i = 0;
 
 	token = (t_token *)data;
-	printf("token line-> [%s]\n", token->line);
+	printf("token line->[%s]\n", token->line);
+	if (token->outfiles)
+		while (token->outfiles[i])
+			printf("outfiles->(%s)\n", token->outfiles[i++]);
 }
 //--------------------------------------------------------
 
@@ -115,7 +107,6 @@ void	main_loop(t_shell	*shell)
 			if (ft_strnstr(shell->splitter.str, "exit", ft_strlen(shell->splitter.str))
 				&& ft_strlen(shell->splitter.str) == 4)
 				break ;
-
 		}
 		ft_tree_in_order(shell->token_tree, print_tree);
 		free_tree(shell, shell->token_tree);
