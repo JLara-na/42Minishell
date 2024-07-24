@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/16 22:57:03 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/24 20:56:43 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,16 @@ void	print_tree(void *data)
 	int i = 0;
 
 	token = (t_token *)data;
-	printf("token line->[%s]\n", token->line);
+	//printf("token line->[%s]\n", token->line);
+	printf("token app->[%d]\n", token->append);
+	printf("token her->[%d]\n", token->heredoc);
 	if (token->outfiles)
 		while (token->outfiles[i])
-			printf("outfiles->(%s)\n", token->outfiles[i++]);
+			printf(CUSTOM_1 "outfiles->(%s)\n", token->outfiles[i++]);
+	i = 0;
+	if (token->infiles)
+		while (token->infiles[i])
+			printf(CUSTOM_3 "infiles->(%s)\n", token->infiles[i++]);
 }
 //--------------------------------------------------------
 

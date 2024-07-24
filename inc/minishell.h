@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/14 00:49:35 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/24 20:54:40 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef enum e_std
 typedef struct s_token
 {
 	int			append;
+	int			heredoc;
 	char		*line;		//Comandos con sus argumentos y redirecciones
 	char		*cmd;		//El comando
 	char		**args;		//Los argumentos (args[0] es el propio comando)
