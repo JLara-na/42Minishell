@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 19:45:56 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/13 22:40:33 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/30 21:28:08 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 //	0	1	2	3	4	5	6	7	Column characters
 //	\s	|	<	>	&	"	'	^
-
 int	splitter_get_state(int i, int j)
 {
 	const int	states[][8] = {
-	{0, 9, 2, 9, 9, 7, 8, 12},	// 0  Empty
+	{0, 9, 2, 4, 9, 7, 8, 12},	// 0  Empty
 	{10, 9, 9, 9, 9, 7, 8, 12},	// 1  Pipe Open (NO CONTEMPLAMOS OR)
 	{10, 9, 3, 9, 9, 7, 8, 12},	// 2  Less Open
 	{10, 9, 9, 9, 9, 7, 8, 12},	// 3  Heredoc Open
@@ -36,8 +35,8 @@ int	splitter_get_state(int i, int j)
 	return (states[i][j]);
 }
 
-//   \s, ", ', <, >, ^
-
+//	0	1	2	3	4	5	Column characters
+//  \s	"	'	<	>	^
 int	tokenizer_get_state(int i, int j)
 {
 	const int	states[][8] = {

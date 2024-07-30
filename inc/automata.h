@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:35:05 by jvasquez          #+#    #+#             */
-/*   Updated: 2024/07/14 00:39:04 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/30 20:11:28 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void		tokenizer_automata_init(t_automata *a, void *data);
 void		get_token(t_automata *a, void *data);
 void		set_infile(t_automata	*a, void	*data);
 void		set_outfile(t_automata	*a, void	*data);
+void		set_cmd_and_args(t_automata	*a, void	*data);
 
 //STATES ENUMS
 

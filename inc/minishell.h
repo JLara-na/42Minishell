@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/24 20:54:40 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/07/31 00:02:11 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,6 @@ typedef enum e_std
 
 //-----------------------------DEFINING STRUCTURES----------------------------//
 
-typedef struct s_token
-{
-	int			append;
-	int			heredoc;
-	char		*line;		//Comandos con sus argumentos y redirecciones
-	char		*cmd;		//El comando
-	char		**args;		//Los argumentos (args[0] es el propio comando)
-	char		**infiles;	
-	char		**outfiles;
-}	t_token;
-
 typedef struct s_shell
 {
 	t_automata	splitter;	//automata para comprobar la validez
@@ -95,6 +84,17 @@ typedef struct s_shell
 
 }	t_shell;
 
+typedef struct s_token
+{
+	t_shell		*shell;
+	int			append;
+	int			heredoc;
+	char		*line;		//Comandos con sus argumentos y redirecciones
+	char		*cmd;		//El comando
+	char		**args;		//Los argumentos (args[0] es el propio comando)
+	char		**infiles;	
+	char		**outfiles;
+}	t_token;
 //----------------------------------FUNCTIONS---------------------------------//
 
 //Main funcions
@@ -105,6 +105,10 @@ void	get_env(t_shell	*shell, char **env);
 
 int		split_in_token_lines(t_shell	*shell);
 void	tokenize_node(void	*token_ptr, void	*shell_ptr);
+
+//Executing functions
+
+void	exe_tokens(t_shell	*shell);
 
 //Built-in functions
 
@@ -120,6 +124,9 @@ int		built_in_export(t_shell	*shell);
 
 void	free_env(t_shell	*shell);
 int		signals_init(void);
+
+void	print_tree(void *data);
+
 
 //----------------------------------ERROR MSG---------------------------------//
 
