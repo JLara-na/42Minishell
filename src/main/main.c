@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/31 00:15:34 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:24:57 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	print_tree(void *data)
 	int i = 0;
 
 	token = (t_token *)data;
+	printf(YELLOW "NEW TOKEN\n" DEF_COLOR);
 	printf("token app->[%d]\n", token->append);
 	printf("token her->[%d]\n", token->heredoc);
 	if (token->cmd)
@@ -123,7 +124,11 @@ void	main_loop(t_shell	*shell)
 		if (split_in_token_lines(shell))
 			ft_tree_in_order_arg(shell->token_tree, tokenize_node, shell);
 		//exe_tokens(shell);
+		//ft_expander(shell);
 		ft_tree_in_order(shell->token_tree, print_tree);
+		if (ft_strnstr(shell->splitter.str, "exit", ft_strlen(shell->splitter.str))
+				&& ft_strlen(shell->splitter.str) == 4)
+				break ;
 		free_tree(shell, shell->token_tree);
 		free(shell->splitter.str);
 	}

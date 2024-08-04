@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:18:39 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/30 21:26:10 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/04 22:20:27 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	tokenizer_alphabet_init(t_automata *a)
 {
 	a->alphabet = malloc(6 * (sizeof(char *)));
-	a->alphabet[0] = ft_strdup(" ");
+	a->alphabet[0] = ft_strdup(" \t\n");
 	a->alphabet[1] = ft_strdup("\"");
 	a->alphabet[2] = ft_strdup("\'");
 	a->alphabet[3] = ft_strdup("<");
@@ -56,12 +56,12 @@ void	tokenizer_tactions_init(t_automata *a)
 	a->fta[TK_APPEND][TK_SPACEB] = set_outfile;
 	a->fta[TK_APPEND][TK_WORDS] = set_outfile;
 	a->fta[TK_APPEND][TK_DOUBLEQ] = set_outfile;
-	a->fta[TK_EMPTY][TK_DOUBLEQ] = set_cmd_and_args;
-	a->fta[TK_EMPTY][TK_SINGLEQ] = set_cmd_and_args;
-	a->fta[TK_EMPTY][TK_WORDS] = set_cmd_and_args;
-	a->fta[TK_SPACEW][TK_WORDS] = set_cmd_and_args;
-	a->fta[TK_SPACEW][TK_DOUBLEQ] = set_cmd_and_args;
-	a->fta[TK_SPACEW][TK_SINGLEQ] = set_cmd_and_args;
+	a->fta[TK_EMPTY][TK_DOUBLEQ] = set_arg;
+	a->fta[TK_EMPTY][TK_SINGLEQ] = set_arg;
+	a->fta[TK_EMPTY][TK_WORDS] = set_arg;
+	a->fta[TK_SPACEW][TK_WORDS] = set_arg;
+	a->fta[TK_SPACEW][TK_DOUBLEQ] = set_arg;
+	a->fta[TK_SPACEW][TK_SINGLEQ] = set_arg;
 }
 
 void	tokenizer_automata_init(t_automata *a, void *data)

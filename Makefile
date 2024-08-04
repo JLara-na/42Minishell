@@ -6,7 +6,7 @@
 #    By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/04 21:24:07 by jlara-na          #+#    #+#              #
-#    Updated: 2024/07/30 21:36:29 by jlara-na         ###   ########.fr        #
+#    Updated: 2024/08/04 20:41:04 by jlara-na         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SUB_DIR_2_1		:=		automata/tokenizer/
 SUB_DIR_3		:=		built_ins/
 SUB_DIR_4		:=		executer/
 SUB_DIR_5		:=		signal_handler/
+SUB_DIR_6		:=		expander/
 OBJ_DIR			:=		obj/
 LIB_DIR			:=		lib/
 INC_DIR			:=		inc/
@@ -103,6 +104,7 @@ SRC_FILES		=		$(SUB_DIR_1)main					\
 						$(SUB_DIR_2_0)actions				\
 						$(SUB_DIR_2_0)ainit					\
 						$(SUB_DIR_2_0)split_in_token_lines	\
+						$(SUB_DIR_2_1)actions_utils			\
 						$(SUB_DIR_2_1)actions				\
 						$(SUB_DIR_2_1)ainit					\
 						$(SUB_DIR_2_1)tokenizer				\
@@ -115,6 +117,7 @@ SRC_FILES		=		$(SUB_DIR_1)main					\
 						$(SUB_DIR_3)cd						\
 						$(SUB_DIR_4)exe_tokens				\
 						$(SUB_DIR_5)signals					\
+						$(SUB_DIR_6)expander				\
 
 						
 
@@ -154,8 +157,9 @@ $(OBJF):
 			@mkdir -p $(OBJ_DIR)$(SUB_DIR_2_0)
 			@mkdir -p $(OBJ_DIR)$(SUB_DIR_2_1)
 			@mkdir -p $(OBJ_DIR)$(SUB_DIR_3)
-			@mkdir -p $(OBJ_DIR)$(SUB_DIR_4)			
-			@mkdir -p $(OBJ_DIR)$(SUB_DIR_5)			
+			@mkdir -p $(OBJ_DIR)$(SUB_DIR_4)
+			@mkdir -p $(OBJ_DIR)$(SUB_DIR_5)
+			@mkdir -p $(OBJ_DIR)$(SUB_DIR_6)
 
 $(LIBFT):
 			@make -C $(LFT_DIR)

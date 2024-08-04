@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/31 00:02:11 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/04 20:02:23 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_shell
 	t_automata	splitter;	//automata para comprobar la validez
 	t_automata	tokenizer;	//automata para tokenizar
 	t_tree		*token_tree;	//arbol que contiene las lineas entre pipes
+	char		*expanded_line;
 	char		*readline;
 	char		**local_env;
 	char		**path_var;
@@ -95,6 +96,7 @@ typedef struct s_token
 	char		**infiles;	
 	char		**outfiles;
 }	t_token;
+
 //----------------------------------FUNCTIONS---------------------------------//
 
 //Main funcions
@@ -105,6 +107,7 @@ void	get_env(t_shell	*shell, char **env);
 
 int		split_in_token_lines(t_shell	*shell);
 void	tokenize_node(void	*token_ptr, void	*shell_ptr);
+void	ft_expander(t_shell	*shell);
 
 //Executing functions
 
@@ -125,8 +128,9 @@ int		built_in_export(t_shell	*shell);
 void	free_env(t_shell	*shell);
 int		signals_init(void);
 
-void	print_tree(void *data);
+//Delete Later
 
+void	print_tree(void *data);
 
 //----------------------------------ERROR MSG---------------------------------//
 

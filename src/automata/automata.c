@@ -6,28 +6,28 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 19:45:56 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/30 21:28:08 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/04 20:22:32 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 //	0	1	2	3	4	5	6	7	Column characters
-//	\s	|	<	>	&	"	'	^
+//	\s	|	<	>	$	"	'	^
 int	splitter_get_state(int i, int j)
 {
 	const int	states[][8] = {
-	{0, 9, 2, 4, 9, 7, 8, 12},	// 0  Empty
-	{10, 9, 9, 9, 9, 7, 8, 12},	// 1  Pipe Open (NO CONTEMPLAMOS OR)
-	{10, 9, 3, 9, 9, 7, 8, 12},	// 2  Less Open
-	{10, 9, 9, 9, 9, 7, 8, 12},	// 3  Heredoc Open
-	{10, 9, 9, 5, 9, 7, 8, 12},	// 4  Greater Open
-	{10, 9, 9, 9, 9, 7, 8, 12},	// 5  Append Open
-	{11, 9, 9, 9, 9, 7, 8, 12},	// 6  & Found
-	{7, 7, 7, 7, 7, 11, 7, 7},	// 7  Open double quotes
+	{0, 9, 2, 4, 6, 7, 8, 12},	// 0  Empty
+	{10, 9, 9, 9, 6, 7, 8, 12},	// 1  Pipe Open (NO CONTEMPLAMOS OR)
+	{10, 9, 3, 9, 6, 7, 8, 12},	// 2  Less Open
+	{10, 9, 9, 9, 6, 7, 8, 12},	// 3  Heredoc Open
+	{10, 9, 9, 5, 6, 7, 8, 12},	// 4  Greater Open
+	{10, 9, 9, 9, 6, 7, 8, 12},	// 5  Append Open
+	{11, 1, 2, 4, 6, 7, 8, 12},	// 6  $ Found
+	{7, 7, 7, 7, 6, 11, 7, 7},	// 7  Open double quotes
 	{8, 8, 8, 8, 8, 8, 11, 8},	// 8  Open single quotes
 	{9, 9, 9, 9, 9, 9, 9, 9},	// 9  Invalid input
-	{10, 9, 9, 9, 9, 7, 8, 12},	// 10 Spaces after key
+	{10, 9, 9, 9, 6, 7, 8, 12},	// 10 Spaces after key
 	{11, 1, 2, 4, 6, 7, 8, 12},	// 11 Spaces between words
 	{11, 1, 2, 4, 6, 7, 8, 12},	// 12 Comands
 	};

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlara-na <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 00:33:54 by jlara-na          #+#    #+#             */
-/*   Updated: 2022/06/22 00:58:02 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:14:11 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,28 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		j++;
 	}
 	return (str);
+}
+
+char	*ft_strjoinfree(char *s1, char *s2, int which)
+{
+	char	*joined;
+
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (s2);
+	if (!s2)
+		return (s1);
+	joined = ft_strjoin(s1, s2);
+	if (!which || which == 2)
+	{
+		free(s1);
+		s1 = NULL;
+	}
+	if (which)
+	{
+		free(s2);
+		s2 = NULL;
+	}
+	return (joined);
 }

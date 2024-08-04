@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:35:05 by jvasquez          #+#    #+#             */
-/*   Updated: 2024/07/30 20:11:28 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/04 20:45:55 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,11 @@ void		tokenizer_automata_init(t_automata *a, void *data);
 void		get_token(t_automata *a, void *data);
 void		set_infile(t_automata	*a, void	*data);
 void		set_outfile(t_automata	*a, void	*data);
-void		set_cmd_and_args(t_automata	*a, void	*data);
+void		set_arg(t_automata	*a, void	*data);
+
+//ACTIONS UTILS
+
+char		*get_next_word(t_automata	*a);
 
 //STATES ENUMS
 
@@ -71,7 +75,7 @@ typedef enum e_sp_states
 	SP_HEREDOC,
 	SP_GREAT,
 	SP_APPEND,
-	SP_AMPLESAN,
+	SP_DOLLAR,
 	SP_DOUBLEQ,
 	SP_SINGLEQ,
 	SP_INVALID,
