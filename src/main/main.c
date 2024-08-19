@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/03 16:24:57 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/19 20:42:24 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,28 +92,31 @@ void	free_tree(t_shell	*shell, t_tree	*tree)
 	}
 }
 //---------------------- TREE FTS-------------------------
+
 void	print_tree(void *data)
 {
 	t_token	*token;
-	int i = 0;
+	int		i;
 
+	i = 0;
 	token = (t_token *)data;
 	printf(YELLOW "NEW TOKEN\n" DEF_COLOR);
 	printf("token app->[%d]\n", token->append);
 	printf("token her->[%d]\n", token->heredoc);
+	printf("token str->[%s]\n", token->line);
 	if (token->cmd)
-		printf(CUSTOM_1 "cmd->(%s)\n", token->cmd);
+		printf(CUSTOM_1 "cmd->(%s)\n" DEF_COLOR, token->cmd);
 	if (token->args)
 		while (token->args[i])
-			printf(CUSTOM_1 "args->(%s)\n", token->args[i++]);
+			printf(CUSTOM_1 "args->(%s)\n" DEF_COLOR, token->args[i++]);
 	i = 0;
 	if (token->outfiles)
 		while (token->outfiles[i])
-			printf(CUSTOM_3 "outfiles->(%s)\n", token->outfiles[i++]);
+			printf(CUSTOM_3 "outfiles->(%s)\n" DEF_COLOR, token->outfiles[i++]);
 	i = 0;
 	if (token->infiles)
 		while (token->infiles[i])
-			printf(CUSTOM_4 "infiles->(%s)\n", token->infiles[i++]);
+			printf(CUSTOM_4 "infiles->(%s)\n" DEF_COLOR, token->infiles[i++]);
 }
 //--------------------------------------------------------
 
@@ -123,17 +126,29 @@ void	main_loop(t_shell	*shell)
 	{
 		if (split_in_token_lines(shell))
 			ft_tree_in_order_arg(shell->token_tree, tokenize_node, shell);
-		//exe_tokens(shell);
-		//ft_expander(shell);
+		ft_expander(shell);
+
+
+
+
+
 		ft_tree_in_order(shell->token_tree, print_tree);
+		
 		if (ft_strnstr(shell->splitter.str, "exit", ft_strlen(shell->splitter.str))
 				&& ft_strlen(shell->splitter.str) == 4)
 				break ;
+		if (ft_strnstr(shell->splitter.str, "env", ft_strlen(shell->splitter.str))
+				&& ft_strlen(shell->splitter.str) == 3)
+				built_in_env(shell);
+
+
+
 		free_tree(shell, shell->token_tree);
 		free(shell->splitter.str);
 	}
 	free(shell->splitter.str);
 	free_tree(shell, shell->token_tree);
+	free_env(shell);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -144,7 +159,6 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	init_hell(&shell, envp);
 	main_loop(&shell);
-	free_env(&shell);
 	printf(MSG_BYE);
 	return (0);
 }

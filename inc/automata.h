@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:35:05 by jvasquez          #+#    #+#             */
-/*   Updated: 2024/08/04 20:45:55 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/19 18:37:50 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ typedef enum e_sp_states
 	SP_HEREDOC,
 	SP_GREAT,
 	SP_APPEND,
-	SP_DOLLAR,
 	SP_DOUBLEQ,
 	SP_SINGLEQ,
 	SP_INVALID,
@@ -96,7 +95,8 @@ typedef enum e_tk_states
 	TK_HEREDOC,
 	TK_GREAT,
 	TK_APPEND,
-	TK_WORDS
+	TK_WORDS,
+	TK_ENDOFQ
 }	t_tk_states;
 
 #endif

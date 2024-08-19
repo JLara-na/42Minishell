@@ -6,90 +6,54 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 20:36:19 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/04 22:27:19 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/19 19:50:48 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/minishell.h"
-/*
+
+int	quote_len(char	*str, char type)
+{
+	int	i;
+
+	i = 1;
+	while (str[i] != type && str[i] != '\0')
+		i++;
+	return (i);
+}
+
 int	arg_length(char	*arg)
 {
 	int	len;
 
 	len = 0;
-	if (arg[0] == '\"' || arg[0] == '\'')
-	{
+	while (arg[len] == ' ' || arg[len] == '\t')
 		len++;
-		while (arg[len] != arg[0])
-			len++;
+	while (arg[len] != '\0' && arg[len] != '<' && arg[len] != '>')
+	{
+		if (arg[len] == '\'' || arg[len] == '\"')
+			len += quote_len(arg + len, arg[len]);
+		if ((arg[len] == ' ' || arg[len] == '\t'
+				|| arg[len] == '\n'))
+			break ;
 		len++;
 	}
-	else
-		while ((arg[len] != ' ' && arg[len] != '\t' && arg[len] != '\n'
-				&& arg[0]) && arg[len] != '\0')
-			len++;
 	return (len);
 }
 
 char	*get_next_word(t_automata	*a)
 {
 	char	*substr;
-	char	*trm;
+	char	*trim;
 	int		i;
 
 	i = 0;
-    while (a->str[a->i + i] == ' ' || a->str[a->i + i] == '\t' || a->str[a->i + i] == '\n' || a->str[a->i + i] == '\0')
-    {
-        i++;
-    }
-    while (a->str[a->i + i] != ' ' && a->str[a->i + i] != '\t'
-		&& a->str[a->i + i] != '\n' && a->str[a->i + i] != '\0'
-		&& a->str[a->i + i] != '<' && a->str[a->i + i] != '>'
-		&& a->str[a->i + i] != '|')
-		i++;
+	i = arg_length(a->str + a->i);
+	substr = NULL;
+	trim = NULL;
 	substr = ft_substr(a->str, a->i, i);
-	a->j = a->i;
-	trm = ft_strtrim(substr, " ");
+	trim = ft_strtrim(substr, " \t\n");
 	free(substr);
-	return (trm);
-}
-*/
-int	arg_length(char	*arg)
-{
-	int	len;
-
-	len = 0;
-	if (arg[0] == '\"' || arg[0] == '\'')
-	{
-		len++;
-		while (arg[len] != arg[0])
-			len++;
-		len++;
-	}
-	else
-		while ((arg[len] != ' ' && arg[len] != '\t' && arg[len] != '\n'
-				&& arg[0]) && arg[len] != '\0')
-			len++;
-	return (len);
-}
-
-char	*get_next_word(t_automata	*a)
-{
-	char	*substr;
-	char	*trm;
-	char	*next_word;
-	int		i;
-
-	i = 0;
-	while (a->str[a->i + i] != '<' && a->str[a->i + i] != '>'
-		&& a->str[a->i + i] != '\0')
-		i++;
-	substr = ft_substr(a->str, a->i, i);
 	a->j = a->i;
-	trm = ft_strtrim(substr, " ");
-	free(substr);
-	i = arg_length(trm);
-	next_word = ft_substr(trm, 0, i);
-	free(trm);
-	return (next_word);
+	return (trim);
 }

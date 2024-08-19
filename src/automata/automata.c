@@ -6,30 +6,29 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 19:45:56 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/04 20:22:32 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/19 18:41:58 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-//	0	1	2	3	4	5	6	7	Column characters
-//	\s	|	<	>	$	"	'	^
+//	0	1	2	3	4	5	6	Column characters
+//	\s	|	<	>	"	'	^
 int	splitter_get_state(int i, int j)
 {
-	const int	states[][8] = {
-	{0, 9, 2, 4, 6, 7, 8, 12},	// 0  Empty
-	{10, 9, 9, 9, 6, 7, 8, 12},	// 1  Pipe Open (NO CONTEMPLAMOS OR)
-	{10, 9, 3, 9, 6, 7, 8, 12},	// 2  Less Open
-	{10, 9, 9, 9, 6, 7, 8, 12},	// 3  Heredoc Open
-	{10, 9, 9, 5, 6, 7, 8, 12},	// 4  Greater Open
-	{10, 9, 9, 9, 6, 7, 8, 12},	// 5  Append Open
-	{11, 1, 2, 4, 6, 7, 8, 12},	// 6  $ Found
-	{7, 7, 7, 7, 6, 11, 7, 7},	// 7  Open double quotes
-	{8, 8, 8, 8, 8, 8, 11, 8},	// 8  Open single quotes
-	{9, 9, 9, 9, 9, 9, 9, 9},	// 9  Invalid input
-	{10, 9, 9, 9, 6, 7, 8, 12},	// 10 Spaces after key
-	{11, 1, 2, 4, 6, 7, 8, 12},	// 11 Spaces between words
-	{11, 1, 2, 4, 6, 7, 8, 12},	// 12 Comands
+	const int	states[][7] = {
+	{0, 8, 2, 4, 6, 7, 11},		// 0  Empty
+	{9, 8, 8, 8, 6, 7, 11},		// 1  Pipe Open (NO CONTEMPLAMOS OR)
+	{9, 8, 3, 8, 6, 7, 11},		// 2  Less Open
+	{9, 8, 8, 8, 6, 7, 11},		// 3  Heredoc Open
+	{9, 8, 8, 5, 6, 7, 11},		// 4  Greater Open
+	{9, 8, 8, 8, 6, 7, 11},		// 5  Append Open
+	{6, 6, 6, 6, 10, 6, 6},		// 6  Open double quotes
+	{7, 7, 7, 7, 7, 10, 7},		// 7  Open single quotes
+	{8, 8, 8, 8, 8, 8, 8},		// 8  Invalid input
+	{9, 8, 8, 8, 6, 7, 11},		// 9 Spaces after key
+	{10, 1, 2, 4, 6, 7, 11},	// 10 Spaces between words
+	{10, 1, 2, 4, 6, 7, 11},	// 11 Comands
 	};
 
 	return (states[i][j]);
@@ -41,8 +40,8 @@ int	tokenizer_get_state(int i, int j)
 {
 	const int	states[][8] = {
 	{0, 1, 2, 6, 8, 10},	// 0 Empty input
-	{1, 5, 1, 1, 1, 1},		// 1 Open double quotes
-	{2, 2, 5, 2, 2, 2},		// 2 Open single quotes
+	{1, 11, 1, 1, 1, 1},	// 1 Open double quotes
+	{2, 2, 11, 2, 2, 2},	// 2 Open single quotes
 	{3, 3, 3, 3, 3, 3},		// 3 Invalid input
 	{4, 1, 2, 6, 8, 10},	// 4 Spaces without words
 	{5, 1, 2, 6, 8, 10},	// 5 Spaces between words
@@ -51,6 +50,7 @@ int	tokenizer_get_state(int i, int j)
 	{4, 1, 2, 3, 9, 10},	// 8 greater found
 	{4, 1, 2, 3, 3, 10},	// 9 append
 	{5, 1, 2, 6, 8, 10},	// 10 Not operators
+	{5, 1, 2, 6, 8, 10},	// 11 End of q
 	};
 
 	return (states[i][j]);
