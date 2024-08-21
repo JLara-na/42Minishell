@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/19 20:42:24 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:27:40 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,13 @@ void	prueba(void)
 	}
 	printf("x : %d\n", x);
 }
-
-if (ft_strnstr(shell->splitter.str, "exit", ft_strlen(shell->splitter.str))
-				&& ft_strlen(shell->splitter.str) == 4)
-				break ;
-
-
 */
 
 void	init_hell(t_shell	*shell, char **envp)
 {
 	printf(CLEAR HEADER);
 	ft_bzero(shell, sizeof(t_shell));
-	get_env(shell, envp);
+	import_env(shell, envp);
 }
 
 void	free_token(void	*data)
@@ -134,10 +128,10 @@ void	main_loop(t_shell	*shell)
 
 		ft_tree_in_order(shell->token_tree, print_tree);
 		
-		if (ft_strnstr(shell->splitter.str, "exit", ft_strlen(shell->splitter.str))
+		if(ft_strnstr(shell->splitter.str, "exit", ft_strlen(shell->splitter.str))
 				&& ft_strlen(shell->splitter.str) == 4)
 				break ;
-		if (ft_strnstr(shell->splitter.str, "env", ft_strlen(shell->splitter.str))
+		if(ft_strnstr(shell->splitter.str, "env", ft_strlen(shell->splitter.str))
 				&& ft_strlen(shell->splitter.str) == 3)
 				built_in_env(shell);
 

@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 16:07:21 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/03 17:14:44 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:04:04 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@
 # include <stdio.h>
 # include <string.h>
 # include <limits.h>
+
+typedef enum s_bool
+{
+	FALSE,
+	TRUE
+}	t_bool;
 
 typedef struct s_list
 {
@@ -84,6 +90,7 @@ char	*ft_strjoinfree(char *s1, char *s2, int which);
 
 
 //LIST FT
+t_list	*ft_lstfind(t_list *lst, t_bool (*f)(void *, void *), void *context);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);

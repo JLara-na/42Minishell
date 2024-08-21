@@ -6,7 +6,7 @@
 #    By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/13 17:02:15 by jlara-na          #+#    #+#              #
-#    Updated: 2024/07/15 22:49:23 by jlara-na         ###   ########.fr        #
+#    Updated: 2024/08/21 21:57:21 by jlara-na         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ FILES_C =	ft_isalpha.c				\
 			ft_putstr_fd.c				\
 			ft_putendl_fd.c				\
 			ft_putnbr_fd.c				\
+			ft_lstfind.c				\
 			ft_lstnew_bonus.c			\
 			ft_lstadd_front_bonus.c		\
 			ft_lstsize_bonus.c			\

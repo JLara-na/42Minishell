@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 21:47:38 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/19 21:16:30 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/21 20:17:20 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 	free(var);
 */
 
-char	*var_expander(char *str, int start, int len)
+/*char	*var_expander(char *str, int start, int len)
 {
 	
-}
+}*/
 
 void	expand_vars(char	*str)
 {
@@ -48,7 +48,7 @@ void	expand_vars(char	*str)
 			while (str[i + j] != '\0' && str[i + j] != ' ' && str[i + j]
 				!= '\'' && str[i + j] != '\"' && str[i + j] != '$')
 				j++;
-			var = var_expander(str, i, j);
+			var = ft_substr(str, i, j);
 			printf(BLUE "var->[%s]\n" DEF_COLOR, var);
 			free(var);
 		}
@@ -66,7 +66,6 @@ void	expand_node(void	*data, void	*arg)
 	(void)arg;
 	(void)shell;
 	expand_vars(token->line);
-
 }
 
 void	ft_expander(t_shell	*shell)

@@ -6,7 +6,7 @@
 #    By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/04 21:24:07 by jlara-na          #+#    #+#              #
-#    Updated: 2024/08/04 20:41:04 by jlara-na         ###   ########.fr        #
+#    Updated: 2024/08/21 23:17:01 by jlara-na         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SUB_DIR_3		:=		built_ins/
 SUB_DIR_4		:=		executer/
 SUB_DIR_5		:=		signal_handler/
 SUB_DIR_6		:=		expander/
+SUB_DIR_7		:=		enviroment/
 OBJ_DIR			:=		obj/
 LIB_DIR			:=		lib/
 INC_DIR			:=		inc/
@@ -99,7 +100,6 @@ CUSTOM_4		=		\033[38:5:101m
 #---------SRC OBJ DEP INC---------
 
 SRC_FILES		=		$(SUB_DIR_1)main					\
-						$(SUB_DIR_1)get_env					\
 						$(SUB_DIR_2)automata				\
 						$(SUB_DIR_2_0)actions				\
 						$(SUB_DIR_2_0)ainit					\
@@ -118,6 +118,8 @@ SRC_FILES		=		$(SUB_DIR_1)main					\
 						$(SUB_DIR_4)exe_tokens				\
 						$(SUB_DIR_5)signals					\
 						$(SUB_DIR_6)expander				\
+						$(SUB_DIR_7)import_env				\
+						$(SUB_DIR_7)search_utils			\
 
 						
 
@@ -160,6 +162,7 @@ $(OBJF):
 			@mkdir -p $(OBJ_DIR)$(SUB_DIR_4)
 			@mkdir -p $(OBJ_DIR)$(SUB_DIR_5)
 			@mkdir -p $(OBJ_DIR)$(SUB_DIR_6)
+			@mkdir -p $(OBJ_DIR)$(SUB_DIR_7)
 
 $(LIBFT):
 			@make -C $(LFT_DIR)

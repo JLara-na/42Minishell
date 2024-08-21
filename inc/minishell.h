@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/04 20:02:23 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/21 23:15:52 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,9 @@ typedef struct s_shell
 	t_automata	splitter;	//automata para comprobar la validez
 	t_automata	tokenizer;	//automata para tokenizar
 	t_tree		*token_tree;	//arbol que contiene las lineas entre pipes
-	char		*expanded_line;
+	t_list		*enviroment;
 	char		*readline;
-	char		**local_env;
-	char		**path_var;
+	char		**path_var; //Revisar si es necesario o no
 
 }	t_shell;
 
@@ -97,11 +96,20 @@ typedef struct s_token
 	char		**outfiles;
 }	t_token;
 
+//Enviroment variable (name, value)
+typedef struct s_var
+{
+	char		*name;
+	char		*value;
+}	t_var;
+
 //----------------------------------FUNCTIONS---------------------------------//
 
-//Main funcions
+//Enviroment funcions
 
-void	get_env(t_shell	*shell, char **env);
+void	import_env(t_shell	*shell, char **env);
+t_bool	find_var(void *content, void *context);
+char	*find_value(t_list	*env, char	*name);
 
 //Parsing functions
 
@@ -117,7 +125,7 @@ void	exe_tokens(t_shell	*shell);
 
 int		built_in_cd(t_shell	*shell);
 int		built_in_pwd(t_shell	*shell);
-int		built_in_env(t_shell	*shell);
+void	built_in_env(t_shell	*shell);
 int		built_in_exit(t_shell	*shell);
 int		built_in_echo(t_shell	*shell);
 int		built_in_unset(t_shell	*shell);
