@@ -6,7 +6,7 @@
 #    By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/04 21:24:07 by jlara-na          #+#    #+#              #
-#    Updated: 2024/08/21 23:17:01 by jlara-na         ###   ########.fr        #
+#    Updated: 2024/08/26 21:29:03 by jlara-na         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,11 @@ SUB_DIR_1		:=		main/
 SUB_DIR_2		:=		automata/
 SUB_DIR_2_0		:=		automata/splitter/
 SUB_DIR_2_1		:=		automata/tokenizer/
+SUB_DIR_2_2		:=		automata/expander/
 SUB_DIR_3		:=		built_ins/
 SUB_DIR_4		:=		executer/
 SUB_DIR_5		:=		signal_handler/
-SUB_DIR_6		:=		expander/
-SUB_DIR_7		:=		enviroment/
+SUB_DIR_6		:=		enviroment/
 OBJ_DIR			:=		obj/
 LIB_DIR			:=		lib/
 INC_DIR			:=		inc/
@@ -108,6 +108,7 @@ SRC_FILES		=		$(SUB_DIR_1)main					\
 						$(SUB_DIR_2_1)actions				\
 						$(SUB_DIR_2_1)ainit					\
 						$(SUB_DIR_2_1)tokenizer				\
+						$(SUB_DIR_2_2)expander				\
 						$(SUB_DIR_3)export					\
 						$(SUB_DIR_3)unset					\
 						$(SUB_DIR_3)echo					\
@@ -117,9 +118,8 @@ SRC_FILES		=		$(SUB_DIR_1)main					\
 						$(SUB_DIR_3)cd						\
 						$(SUB_DIR_4)exe_tokens				\
 						$(SUB_DIR_5)signals					\
-						$(SUB_DIR_6)expander				\
-						$(SUB_DIR_7)import_env				\
-						$(SUB_DIR_7)search_utils			\
+						$(SUB_DIR_6)import_env				\
+						$(SUB_DIR_6)search_utils			\
 
 						
 
@@ -158,11 +158,12 @@ $(OBJF):
 			@mkdir -p $(OBJ_DIR)$(SUB_DIR_2)
 			@mkdir -p $(OBJ_DIR)$(SUB_DIR_2_0)
 			@mkdir -p $(OBJ_DIR)$(SUB_DIR_2_1)
+			@mkdir -p $(OBJ_DIR)$(SUB_DIR_2_2)
 			@mkdir -p $(OBJ_DIR)$(SUB_DIR_3)
 			@mkdir -p $(OBJ_DIR)$(SUB_DIR_4)
 			@mkdir -p $(OBJ_DIR)$(SUB_DIR_5)
 			@mkdir -p $(OBJ_DIR)$(SUB_DIR_6)
-			@mkdir -p $(OBJ_DIR)$(SUB_DIR_7)
+#			@mkdir -p $(OBJ_DIR)$(SUB_DIR_7)
 
 $(LIBFT):
 			@make -C $(LFT_DIR)

@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 16:07:21 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/21 22:04:04 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:53:57 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+int		ft_samestr(const char *s1, const char *s2);
 int		ft_atoi_base(char *str, char *base);
 int		ft_atoi(const char *str);
 void	*ft_calloc(size_t count, size_t size);

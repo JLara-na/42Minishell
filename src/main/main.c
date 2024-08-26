@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/21 22:27:40 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/26 22:04:13 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,24 +119,17 @@ void	main_loop(t_shell	*shell)
 	while (1)
 	{
 		if (split_in_token_lines(shell))
+		{
 			ft_tree_in_order_arg(shell->token_tree, tokenize_node, shell);
-		ft_expander(shell);
+			ft_expander(shell);
+			ft_tree_in_order_arg(shell->token_tree, execute_token, shell);
+			//ft_tree_in_order(shell->token_tree, print_tree);
 
-
-
-
-
-		ft_tree_in_order(shell->token_tree, print_tree);
-		
-		if(ft_strnstr(shell->splitter.str, "exit", ft_strlen(shell->splitter.str))
+			if(ft_strnstr(shell->splitter.str, "exit", ft_strlen(shell->splitter.str))
 				&& ft_strlen(shell->splitter.str) == 4)
 				break ;
-		if(ft_strnstr(shell->splitter.str, "env", ft_strlen(shell->splitter.str))
-				&& ft_strlen(shell->splitter.str) == 3)
-				built_in_env(shell);
 
-
-
+		}
 		free_tree(shell, shell->token_tree);
 		free(shell->splitter.str);
 	}

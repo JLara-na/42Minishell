@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 20:24:15 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/21 21:05:28 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:53:02 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,24 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		i++;
 	}
 	return (0);
+}
+
+int	ft_samestr(const char *s1, const char *s2)
+{
+	size_t				i;
+	size_t				len1;
+	size_t				len2;
+
+	i = 0;
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	if (len1 != len2)
+		return (0);
+	while (s1[i])
+	{
+		if (s1[i] != s2[i])
+			return (0);
+		i++;
+	}
+	return (1);
 }

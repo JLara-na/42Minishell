@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/21 23:15:52 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/26 22:02:07 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct s_shell
 
 typedef struct s_token
 {
-	t_shell		*shell;
+	//t_shell		*shell;
 	int			append;
 	int			heredoc;
 	char		*line;		//Comandos con sus argumentos y redirecciones
@@ -110,6 +110,8 @@ typedef struct s_var
 void	import_env(t_shell	*shell, char **env);
 t_bool	find_var(void *content, void *context);
 char	*find_value(t_list	*env, char	*name);
+t_var	*create_var(char *name, char *value);
+
 
 //Parsing functions
 
@@ -119,7 +121,7 @@ void	ft_expander(t_shell	*shell);
 
 //Executing functions
 
-void	exe_tokens(t_shell	*shell);
+void	execute_token(void *data, void *context);
 
 //Built-in functions
 
@@ -129,7 +131,7 @@ void	built_in_env(t_shell	*shell);
 int		built_in_exit(t_shell	*shell);
 int		built_in_echo(t_shell	*shell);
 int		built_in_unset(t_shell	*shell);
-int		built_in_export(t_shell	*shell);
+void	built_in_export(t_shell *shell, t_token	*token);
 
 //Utils
 

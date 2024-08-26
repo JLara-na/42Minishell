@@ -6,11 +6,11 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 21:47:38 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/21 20:17:20 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:28:28 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../../inc/minishell.h"
 /*
 	int j;
 
