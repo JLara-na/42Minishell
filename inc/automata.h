@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:35:05 by jvasquez          #+#    #+#             */
-/*   Updated: 2024/08/19 18:37:50 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:48:29 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,15 @@ void		splitter_sactions_init(t_automata *a);
 void		splitter_tactions_init(t_automata *a);
 void		splitter_automata_init(t_automata *a, void *data);
 
+//expander FT
+
+int			expander_get_state(int i, int j);
+void		expander_alphabet_init(t_automata *a);
+void		expander_errors_init(t_automata *a);
+void		expander_sactions_init(t_automata *a);
+void		expander_tactions_init(t_automata *a);
+void		expander_automata_init(t_automata *a, void *data);
+
 //TOKENIZER FT
 
 int			tokenizer_get_state(int i, int j);
@@ -56,6 +65,8 @@ void		tokenizer_automata_init(t_automata *a, void *data);
 
 //ACTIONS
 
+void		insert_var(t_automata *a, void *data);
+void		insert_chr(t_automata *a, void *data);
 void		get_token(t_automata *a, void *data);
 void		set_infile(t_automata	*a, void	*data);
 void		set_outfile(t_automata	*a, void	*data);
@@ -82,6 +93,17 @@ typedef enum e_sp_states
 	SP_SPACEW,
 	SP_WORDS
 }	t_sp_states;
+
+typedef enum e_ex_states
+{
+	EX_LOOKING,
+	EX_DOUBLEQ,
+	EX_SINGLEQ,
+	EX_DOLLAR_OUT,
+	EX_DOLLAR_IN,
+	EX_NAME_OUT,
+	EX_NAME_IN
+}	t_ex_states;
 
 typedef enum e_tk_states
 {

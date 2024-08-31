@@ -6,7 +6,7 @@
 #    By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/04 21:24:07 by jlara-na          #+#    #+#              #
-#    Updated: 2024/08/26 21:29:03 by jlara-na         ###   ########.fr        #
+#    Updated: 2024/08/28 18:45:26 by jlara-na         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,6 +101,7 @@ CUSTOM_4		=		\033[38:5:101m
 
 SRC_FILES		=		$(SUB_DIR_1)main					\
 						$(SUB_DIR_2)automata				\
+						$(SUB_DIR_2)state_matrices			\
 						$(SUB_DIR_2_0)actions				\
 						$(SUB_DIR_2_0)ainit					\
 						$(SUB_DIR_2_0)split_in_token_lines	\
@@ -108,6 +109,8 @@ SRC_FILES		=		$(SUB_DIR_1)main					\
 						$(SUB_DIR_2_1)actions				\
 						$(SUB_DIR_2_1)ainit					\
 						$(SUB_DIR_2_1)tokenizer				\
+						$(SUB_DIR_2_2)actions				\
+						$(SUB_DIR_2_2)ainit					\
 						$(SUB_DIR_2_2)expander				\
 						$(SUB_DIR_3)export					\
 						$(SUB_DIR_3)unset					\

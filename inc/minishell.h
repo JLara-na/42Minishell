@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/26 22:02:07 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:19:30 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef enum e_std
 typedef struct s_shell
 {
 	t_automata	splitter;	//automata para comprobar la validez
+	t_automata	expander;	//automata para expandir la linea
 	t_automata	tokenizer;	//automata para tokenizar
 	t_tree		*token_tree;	//arbol que contiene las lineas entre pipes
 	t_list		*enviroment;
@@ -86,7 +87,7 @@ typedef struct s_shell
 
 typedef struct s_token
 {
-	//t_shell		*shell;
+	t_shell		*shell;
 	int			append;
 	int			heredoc;
 	char		*line;		//Comandos con sus argumentos y redirecciones
@@ -117,7 +118,7 @@ t_var	*create_var(char *name, char *value);
 
 int		split_in_token_lines(t_shell	*shell);
 void	tokenize_node(void	*token_ptr, void	*shell_ptr);
-void	ft_expander(t_shell	*shell);
+void	expand_line(void	*token_ptr, void	*shell_ptr);
 
 //Executing functions
 

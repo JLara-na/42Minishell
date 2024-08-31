@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/26 22:04:13 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/01 01:37:02 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ void	print_tree(void *data)
 	i = 0;
 	token = (t_token *)data;
 	printf(YELLOW "NEW TOKEN\n" DEF_COLOR);
-	printf("token app->[%d]\n", token->append);
-	printf("token her->[%d]\n", token->heredoc);
-	printf("token str->[%s]\n", token->line);
+	//printf("token app->[%d]\n", token->append);
+	//printf("token her->[%d]\n", token->heredoc);
+	//printf("token str->[%s]\n", token->line);
 	if (token->cmd)
 		printf(CUSTOM_1 "cmd->(%s)\n" DEF_COLOR, token->cmd);
 	if (token->args)
@@ -120,10 +120,10 @@ void	main_loop(t_shell	*shell)
 	{
 		if (split_in_token_lines(shell))
 		{
+			ft_tree_in_order_arg(shell->token_tree, expand_line, shell);
 			ft_tree_in_order_arg(shell->token_tree, tokenize_node, shell);
-			ft_expander(shell);
 			ft_tree_in_order_arg(shell->token_tree, execute_token, shell);
-			//ft_tree_in_order(shell->token_tree, print_tree);
+			ft_tree_in_order(shell->token_tree, print_tree);
 
 			if(ft_strnstr(shell->splitter.str, "exit", ft_strlen(shell->splitter.str))
 				&& ft_strlen(shell->splitter.str) == 4)

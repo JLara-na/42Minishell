@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 20:36:19 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/19 19:50:48 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:33:39 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	arg_length(char	*arg)
 				|| arg[len] == '\n'))
 			break ;
 		len++;
+		if (len >= (int)ft_strlen(arg))
+			break;
 	}
 	return (len);
 }
