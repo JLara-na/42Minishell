@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:28:01 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/28 20:49:39 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:58:25 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,6 @@ int	splitter_get_state(int i, int j)
 
 	return (states[i][j]);
 }
-/*
-//	0	1	2   3	4	Column characters
-//	"	'   $   /s
-int	expander_get_state(int i, int j)
-{
-	const int	states[][8] = {
-	{1, 2, 3, 0},	// 0 Looking
-	{0, 1, 4, 1},	// 1 Open double quotes
-	{2, 0, 2, 2},	// 2 Open single quotes
-	{1, 2, 3, 0},	// 3 Dollar outside
-	{0, 1, 4, 1},	// 4 Dollar inside 
-	{0, 0, 0, 0},	// 5 Name	outside
-	{0, 0, 0, 0},	// 6 Name	inside
-	};
-
-	return (states[i][j]);
-}*/
 
 //	0	1	2   3	4	Column characters
 //	/s	"   '	$   ^

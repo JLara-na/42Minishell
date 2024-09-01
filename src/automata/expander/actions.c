@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:09:12 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/01 01:37:36 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/01 20:37:10 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,25 @@ void	insert_var(t_automata *a, void *data)
 	t_token		*token;
 	char		*str;
 	char		*var;
+	char		**pointer;
 
-	(void)a;
 	token = (t_token *)data;
+	pointer = (char **)token->data;
 	var = get_next_var(a);
 	str = find_value(token->shell->enviroment, var);
 	free(var);
-	token->line = ft_strjoinfree(token->line, str, 2);
+	*pointer = ft_strjoinfree(*pointer, str, 2);
 }
 
 void	insert_chr(t_automata *a, void *data)
 {
 	t_token		*token;
 	char		str[2];
+	char		**pointer;
 
 	token = (t_token *)data;
+	pointer = (char **)token->data;
 	str[0] = a->str[a->i];
 	str[1] = '\0';
-	token->line = ft_strjoinfree(token->line, str, 0);
+	*pointer = ft_strjoinfree(*pointer, str, 0);
 }

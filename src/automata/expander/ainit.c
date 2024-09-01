@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:06:45 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/31 22:49:15 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:55:04 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,18 @@ void	expander_errors_init(t_automata *a)
 
 void	expander_sactions_init(t_automata *a)
 {
-	a->fsa[EX_LOOKING] = insert_chr;
-	a->fsa[EX_DOUBLEQ] = insert_chr;
-	a->fsa[EX_SINGLEQ] = insert_chr;
 	a->fsa[EX_DOLLAR_OUT] = insert_var;
 	a->fsa[EX_DOLLAR_IN] = insert_var;
 }
 
 void	expander_tactions_init(t_automata *a)
 {
-	(void)a;/*
 	a->fta[EX_LOOKING][EX_LOOKING] = insert_chr;
-	a->fta[EX_LOOKING][EX_DOUBLEQ] = insert_chr;
-	a->fta[EX_LOOKING][EX_SINGLEQ] = insert_chr;
 	a->fta[EX_DOUBLEQ][EX_DOUBLEQ] = insert_chr;
 	a->fta[EX_SINGLEQ][EX_SINGLEQ] = insert_chr;
-	a->fta[EX_DOUBLEQ][EX_LOOKING] = insert_chr;
-	a->fta[EX_SINGLEQ][EX_LOOKING] = insert_chr;
+	a->fta[EX_DOLLAR_IN][EX_DOUBLEQ] = insert_chr;
+	a->fta[EX_NAME_OUT][EX_LOOKING] = insert_chr;
 	a->fta[EX_NAME_IN][EX_DOUBLEQ] = insert_chr;
-	a->fta[EX_NAME_OUT][EX_LOOKING] = insert_chr;*/
-
 }
 
 void	expander_automata_init(t_automata *a, void *data)

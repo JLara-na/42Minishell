@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/28 20:19:30 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/01 20:13:55 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_token
 	char		**args;		//Los argumentos (args[0] es el propio comando)
 	char		**infiles;	
 	char		**outfiles;
+	void		*data;
 }	t_token;
 
 //Enviroment variable (name, value)
@@ -118,7 +119,7 @@ t_var	*create_var(char *name, char *value);
 
 int		split_in_token_lines(t_shell	*shell);
 void	tokenize_node(void	*token_ptr, void	*shell_ptr);
-void	expand_line(void	*token_ptr, void	*shell_ptr);
+void	expand_token(void	*token_ptr, void	*shell_ptr);
 
 //Executing functions
 
