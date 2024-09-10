@@ -6,25 +6,27 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 23:13:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/26 20:24:06 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/10 18:32:38 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-/*
+
 void	get_path_var(t_shell	*shell)
 {
-	int	i;
+	char	*path_value;
+	int		i;
 
 	i = -1;
-	while (shell->local_env[++i])
+	path_value = find_value(shell->enviroment, "PATH");
+	shell->path_var = ft_split(path_value, ':');
+	free(path_value);
+	if (shell->path_var)
 	{
-		if (!ft_memcmp(shell->local_env[i], "PATH=", 4))
-			shell->path_var = ft_split(shell->local_env[i]
-					+ ft_strlen("PATH="), ':');
+		while (shell->path_var[++i])
+			shell->path_var[i] = ft_strjoinfree(shell->path_var[i], "/", 0);
 	}
 }
-*/
 
 t_var	*create_var(char *name, char *value)
 {
@@ -53,6 +55,7 @@ void	free_env(t_shell	*shell)
 		free(node);
 		node = aux;
 	}
+	ft_free_sarray(shell->path_var);
 }
 
 void	import_env(t_shell	*shell, char **env)
@@ -62,6 +65,7 @@ void	import_env(t_shell	*shell, char **env)
 
 	i = -1;
 	shell->enviroment = NULL;
+	shell->default_env = env;
 	while (env[++i])
 	{
 		j = -1;
@@ -73,4 +77,5 @@ void	import_env(t_shell	*shell, char **env)
 							ft_substr(env[i], j + 1, INT_MAX))));
 		}
 	}
+	get_path_var(shell);
 }

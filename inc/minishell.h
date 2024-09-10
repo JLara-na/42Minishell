@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/01 20:13:55 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/10 18:54:17 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@
 #  define PATH_MAX 4096
 # endif
 
+# ifndef ARG_MAX
+#  define ARG_MAX 4096
+# endif
+
 typedef enum e_std
 {
 	STDIN,
@@ -81,6 +85,7 @@ typedef struct s_shell
 	t_tree		*token_tree;	//arbol que contiene las lineas entre pipes
 	t_list		*enviroment;
 	char		*readline;
+	char		**default_env;
 	char		**path_var; //Revisar si es necesario o no
 
 }	t_shell;
@@ -146,7 +151,15 @@ void	print_tree(void *data);
 
 //----------------------------------ERROR MSG---------------------------------//
 
-# define ERROR_EXIT "EXIT\n"
+# define ERROR_EXIT 	"EXIT\n"
+# define CD_BUILT		"cd"
+# define ECHO_BUILT		"echo"
+# define ENV_BUILT		"env"
+# define EXIT_BUILT		"exit"
+# define EXPORT_BUILT	"export"
+# define PWD_BUILT		"pwd"
+# define UNSET_BUILT	"unset"
+# define PIPE_LINE		"|"
 
 //-----------------------------------ANSI EC----------------------------------//
 

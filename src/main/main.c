@@ -6,14 +6,13 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/01 20:03:03 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:14:50 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/*
-void	prueba(void)
+/*void	prueba(void)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -48,8 +47,8 @@ void	prueba(void)
 		printf("Message from child: '%s'\n", buffer);
 	}
 	printf("x : %d\n", x);
-}
-*/
+}*/
+
 
 void	init_hell(t_shell	*shell, char **envp)
 {
@@ -121,14 +120,14 @@ void	main_loop(t_shell	*shell)
 		if (split_in_token_lines(shell))
 		{
 			ft_tree_in_order_arg(shell->token_tree, tokenize_node, shell);
+			
 			ft_tree_in_order_arg(shell->token_tree, expand_token, shell);
+			
 			ft_tree_in_order_arg(shell->token_tree, execute_token, shell);
-			ft_tree_in_order(shell->token_tree, print_tree);
-
-			if(ft_strnstr(shell->splitter.str, "exit", ft_strlen(shell->splitter.str))
-				&& ft_strlen(shell->splitter.str) == 4)
+			
+			//ft_tree_in_order(shell->token_tree, print_tree);
+			if(ft_samestr(shell->splitter.str, "exit"))
 				break ;
-
 		}
 		free_tree(shell, shell->token_tree);
 		free(shell->splitter.str);

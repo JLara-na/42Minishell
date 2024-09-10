@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 22:57:35 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/06/27 23:56:52 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/04 00:02:08 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 int	built_in_exit(t_shell	*shell)
 {
 	(void)shell;
-	return (0);
+	exit(EXIT_SUCCESS);
 }
