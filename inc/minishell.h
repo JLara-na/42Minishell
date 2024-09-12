@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/10 18:54:17 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:47:53 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ typedef struct s_shell
 	t_automata	tokenizer;	//automata para tokenizar
 	t_tree		*token_tree;	//arbol que contiene las lineas entre pipes
 	t_list		*enviroment;
+	t_list		*export_env;
+	pid_t		last_pid;
+	int			exit_status;
 	char		*readline;
 	char		**default_env;
 	char		**path_var; //Revisar si es necesario o no
@@ -129,16 +132,17 @@ void	expand_token(void	*token_ptr, void	*shell_ptr);
 //Executing functions
 
 void	execute_token(void *data, void *context);
+int		exe_built_in(void	*data, void	*context);
 
 //Built-in functions
 
 int		built_in_cd(t_shell	*shell);
 int		built_in_pwd(t_shell	*shell);
-void	built_in_env(t_shell	*shell);
+int		built_in_env(t_shell	*shell);
 int		built_in_exit(t_shell	*shell);
 int		built_in_echo(t_shell	*shell);
 int		built_in_unset(t_shell	*shell);
-void	built_in_export(t_shell *shell, t_token	*token);
+int		built_in_export(t_shell *shell, t_token	*token);
 
 //Utils
 
@@ -152,6 +156,9 @@ void	print_tree(void *data);
 //----------------------------------ERROR MSG---------------------------------//
 
 # define ERROR_EXIT 	"EXIT\n"
+
+//-----------------------------------DEFINES----------------------------------//
+
 # define CD_BUILT		"cd"
 # define ECHO_BUILT		"echo"
 # define ENV_BUILT		"env"
@@ -160,12 +167,16 @@ void	print_tree(void *data);
 # define PWD_BUILT		"pwd"
 # define UNSET_BUILT	"unset"
 # define PIPE_LINE		"|"
+# define ESCAPE_2		2
+# define ESCAPE_126		126
+# define ESCAPE_127		127
 
 //-----------------------------------ANSI EC----------------------------------//
 
 # define FUNCTION_CLEAR         "\033[H"
 # define CLEAR                  "\033[2J\033[1;1H"
 # define DEF_COLOR              "\033[0m"
+# define UP_ONE_LINE			"\033[F"
 
 # define BLACK                  "\033[0;30m"
 # define GRAY                   "\033[0;90m"

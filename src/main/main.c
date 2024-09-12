@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/10 16:14:50 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:08:45 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ void	print_tree(void *data)
 	i = 0;
 	token = (t_token *)data;
 	printf(YELLOW "NEW TOKEN\n" DEF_COLOR);
-	//printf("token app->[%d]\n", token->append);
-	//printf("token her->[%d]\n", token->heredoc);
+	printf("token app->[%d]\n", token->append);
+	printf("token her->[%d]\n", token->heredoc);
 	printf("token str->[%s]\n", token->line);
 	if (token->cmd)
 		printf(CUSTOM_1 "cmd->(%s)\n" DEF_COLOR, token->cmd);
@@ -113,6 +113,21 @@ void	print_tree(void *data)
 }
 //--------------------------------------------------------
 
+void	wait_childs(t_shell	*shell)
+{
+	int	pid;
+	int	status;
+
+	while (1)
+	{
+		pid = waitpid(-1, &status, 0);
+		if (pid <= 0)
+			break ;
+		if (pid == shell->last_pid)
+			shell->exit_status = WEXITSTATUS(status);
+	}
+}
+
 void	main_loop(t_shell	*shell)
 {
 	while (1)
@@ -120,13 +135,16 @@ void	main_loop(t_shell	*shell)
 		if (split_in_token_lines(shell))
 		{
 			ft_tree_in_order_arg(shell->token_tree, tokenize_node, shell);
-			
+
 			ft_tree_in_order_arg(shell->token_tree, expand_token, shell);
-			
+
 			ft_tree_in_order_arg(shell->token_tree, execute_token, shell);
-			
+
+			wait_childs(shell);
+
 			//ft_tree_in_order(shell->token_tree, print_tree);
-			if(ft_samestr(shell->splitter.str, "exit"))
+
+			if (ft_samestr(shell->splitter.str, "exit"))
 				break ;
 		}
 		free_tree(shell, shell->token_tree);

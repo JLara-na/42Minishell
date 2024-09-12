@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 22:57:37 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/26 22:08:32 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:53:43 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,61 @@ void	add_new_var(t_list	*enviroment, t_var	*newvar)
 		ft_lstadd_back(&enviroment, ft_lstnew(newvar));
 }
 
-void	built_in_export(t_shell *shell, t_token	*token)
+int	is_valid_var_name(char	*arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i] != '\0' && arg[i] != '=')
+	{
+		if (i == 0)
+		{
+			if (arg[i] != '_' && !ft_isalpha(arg[i]))
+				return (0);
+		}
+		else
+		{
+			if (arg[i] != '_' && !ft_isalnum(arg[i]))
+				return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+void	print_export(void	*content)
+{
+	t_var	*var;
+
+	var = (t_var *)content;
+	if (var->name && var->value)
+		printf("declare -x %s=%s\n", var->name, var->value);
+}
+
+int	built_in_export(t_shell *shell, t_token	*token)
 {
 	t_var	*newvar;
+	char	*value;
 	int		i;
 	int		j;
 
 	newvar = NULL;
+	value = NULL;
 	i = 0;
 	j = 0;
 	if (!token->args[1])
-		built_in_env(shell);
+		ft_lstiter(shell->enviroment, print_export);
 	while (token->args[++i])
 	{
+		if (!is_valid_var_name(token->args[i]))
+			return (EXIT_FAILURE);
 		j = ft_chrpos(token->args[i], '=');
 		if (j != -1)
-		{
-			newvar = create_var(ft_substr(token->args[i], 0, j),
-					ft_substr(token->args[i], j + 1, INT_MAX));
-			add_new_var(shell->enviroment, newvar);
-		}
+			value = ft_substr(token->args[i], j + 1, INT_MAX);
+		else
+			value = ft_calloc(sizeof(char *), 1);
+		newvar = create_var(ft_substr(token->args[i], 0, j), value);
+		add_new_var(shell->enviroment, newvar);
 	}
+	return (EXIT_SUCCESS);
 }

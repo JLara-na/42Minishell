@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:18:39 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/19 18:37:05 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:51:01 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	splitter_alphabet_init(t_automata *a)
 void	splitter_errors_init(t_automata *a)
 {
 	a->errors = malloc(11 * (sizeof(char *)));
-	a->errors[0] = ft_strdup("Empty string.");
+	a->errors[0] = ft_strdup(UP_ONE_LINE);
 	a->errors[1] = ft_strdup("Pipe Open");
 	a->errors[2] = ft_strdup("Less Open");
 	a->errors[3] = ft_strdup("Heredoc Open");
@@ -36,7 +36,7 @@ void	splitter_errors_init(t_automata *a)
 	a->errors[6] = ft_strdup("\" Open");
 	a->errors[7] = ft_strdup("\' Open");
 	a->errors[8] = ft_strdup("Invalid Input");
-	a->errors[9] = ft_strdup("Open keyword");
+	a->errors[9] = ft_strdup("Open operator");
 	a->errors[10] = NULL;
 	a->errorlen = 9;
 }
