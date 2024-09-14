@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/12 18:47:53 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:53:55 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,11 @@
 #  define ARG_MAX 4096
 # endif
 
-typedef enum e_std
+typedef enum e_pipe_fd
 {
-	STDIN,
-	STDOUT,
-	STDERR
-}	t_std;
+	READ_END,
+	WRITE_END
+}	t_pipe_fd;
 
 # ifndef M_SHELL_PROMPT
 #  define M_SHELL_PROMPT "$minishell> "
@@ -86,6 +85,7 @@ typedef struct s_shell
 	t_list		*enviroment;
 	t_list		*export_env;
 	pid_t		last_pid;
+	int			child;		//VARIABLE PARA SABER SI EL PROCESO ES UN HIJO CON POSIBES PROCESOS HIIJOS
 	int			exit_status;
 	char		*readline;
 	char		**default_env;
@@ -131,8 +131,11 @@ void	expand_token(void	*token_ptr, void	*shell_ptr);
 
 //Executing functions
 
-void	execute_token(void *data, void *context);
-int		exe_built_in(void	*data, void	*context);
+void	exe_minishell_recursive(t_tree	*tree);
+void	wait_childs(t_token	*token, int twice);
+
+//void	execute_token(void *data, void *context);
+//int		exe_built_in(void	*data, void	*context);
 
 //Built-in functions
 

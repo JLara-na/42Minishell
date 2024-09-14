@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 21:36:56 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/12 19:15:36 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/14 20:39:52 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	exe_built_in(void	*data, void	*context)
 		return (built_in_pwd(shell));
 	if (ft_samestr(token->cmd, UNSET_BUILT))
 		return (-1);
-	return (0);
+	return (1);
 }
 
 int	set_exit_status(char	*cmd, int error_number)
@@ -65,7 +65,7 @@ int	set_exit_status(char	*cmd, int error_number)
 	return (0);
 }
 
-int	exe_path_cmd(t_shell	*shell, t_token	*token)
+void	exe_path_cmd(t_shell	*shell, t_token	*token)
 {
 	int		i;
 	char	*full_cmd;
@@ -82,9 +82,17 @@ int	exe_path_cmd(t_shell	*shell, t_token	*token)
 	}
 	if (!access(token->cmd, X_OK))
 		execve(token->cmd, token->args, shell->default_env);
-	return (set_exit_status(token->cmd, errno));
+	exit(set_exit_status(token->cmd, errno));
 }
 
+void	exe_cmd_or_built(t_shell	*shell, t_token	*token)
+{
+	if (is_built_in(token->cmd))
+		exe_built_in(token, shell);
+	else
+		exe_path_cmd(shell, token);
+}
+/*
 void	execute_token(void *data, void *context)
 {
 	t_token	*token;
@@ -107,4 +115,76 @@ void	execute_token(void *data, void *context)
 			shell->exit_status = exe_path_cmd(shell, token);
 		exit(shell->exit_status);
 	}
+}
+*/
+
+void	wait_childs(t_token	*token, int	twice)
+{
+	if (twice)
+		wait(&token->shell->exit_status);
+	wait(&token->shell->exit_status);
+	if (WIFEXITED(token->shell->exit_status))
+		token->shell->exit_status = WEXITSTATUS(token->shell->exit_status);
+}
+
+void		exe_minishell_recursive(t_tree	*node)
+{
+	t_token	*token;
+	int		pid;
+	int		fd[2];
+
+	if (!node)
+		exit(EXIT_SUCCESS);
+	token = (t_token *)node->data;
+	if (ft_samestr(token->line, PIPE_LINE))
+	{
+		if (pipe(fd) == -1)
+			return ;
+		pid = fork();
+		if (!pid)
+		{
+			//HAZ EL DUP AL PIPE O A LA REDIRECCION
+			dup2(fd[WRITE_END], STDOUT_FILENO);
+			//COMPROBAR REDIRECCIONES AQUI
+			close(fd[READ_END]);
+			token->shell->child = 1;
+			exe_minishell_recursive(node->left);
+		}
+		else
+		{
+			pid = fork();
+			if (!pid)
+			{
+				//HAZ EL DUP AL PIPE O A LA REDIRECCION
+				dup2(fd[READ_END], STDIN_FILENO);
+				//COMPROBAR REDIRECCIONES AQUI
+				close(fd[WRITE_END]);
+				token->shell->child = 1;
+				exe_minishell_recursive(node->right);
+			}
+		}
+		close(fd[WRITE_END]);
+		close(fd[READ_END]);
+		wait_childs(token, TRUE);
+		if (token->shell->child)
+			exit(token->shell->exit_status);
+	}
+	else
+	{
+		if (!token->shell->child)
+		{
+			if (is_built_in(token->cmd))
+				exe_built_in(token, token->shell);
+			else
+			{
+				pid = fork();
+				if (!pid)
+					exe_path_cmd(token->shell, token);
+				wait_childs(token, FALSE);
+			}
+		}
+		else
+			exe_cmd_or_built(token->shell, token);
+	}
+	return ;
 }

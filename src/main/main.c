@@ -6,13 +6,13 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/12 17:08:45 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:54:02 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-/*void	prueba(void)
+/*
+void	prueba(void)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -33,23 +33,23 @@
 	}
 	if (pid == 0)
 	{
-		close(fd[0]); // close the read end of the pipe
+		close(fd[READ_END]); // close the read end of the pipe
 		x = write(fd[1], "Hello parent!", 13);
-		close(fd[1]); // close the write end of the pipe
+		close(fd[WRITE_END]); // close the write end of the pipe
 		exit(EXIT_SUCCESS);
 	}
 	else
 	{
 		wait(NULL);
-		close(fd[1]); // close the write end of the pipe
+		close(fd[WRITE_END]); // close the write end of the pipe
 		x = read(fd[0], buffer, 13);
-		close(fd[0]); // close the read end of the pipe
+		close(fd[READ_END]); // close the read end of the pipe
 		printf("Message from child: '%s'\n", buffer);
 	}
 	printf("x : %d\n", x);
-}*/
+}
 
-
+*/
 void	init_hell(t_shell	*shell, char **envp)
 {
 	printf(CLEAR HEADER);
@@ -89,44 +89,29 @@ void	free_tree(t_shell	*shell, t_tree	*tree)
 void	print_tree(void *data)
 {
 	t_token	*token;
-	int		i;
+	//int		i;
 
-	i = 0;
+	//i = 0;
 	token = (t_token *)data;
 	printf(YELLOW "NEW TOKEN\n" DEF_COLOR);
-	printf("token app->[%d]\n", token->append);
-	printf("token her->[%d]\n", token->heredoc);
+	//printf("token app->[%d]\n", token->append);
+	//printf("token her->[%d]\n", token->heredoc);
 	printf("token str->[%s]\n", token->line);
-	if (token->cmd)
-		printf(CUSTOM_1 "cmd->(%s)\n" DEF_COLOR, token->cmd);
-	if (token->args)
-		while (token->args[i])
-			printf(CUSTOM_1 "args->(%s)\n" DEF_COLOR, token->args[i++]);
-	i = 0;
-	if (token->outfiles)
-		while (token->outfiles[i])
-			printf(CUSTOM_3 "outfiles->(%s)\n" DEF_COLOR, token->outfiles[i++]);
-	i = 0;
-	if (token->infiles)
-		while (token->infiles[i])
-			printf(CUSTOM_4 "infiles->(%s)\n" DEF_COLOR, token->infiles[i++]);
+	//if (token->cmd)
+	//	printf(CUSTOM_1 "cmd->(%s)\n" DEF_COLOR, token->cmd);
+	//if (token->args)
+	//	while (token->args[i])
+	//		printf(CUSTOM_1 "args->(%s)\n" DEF_COLOR, token->args[i++]);
+	//i = 0;
+	//if (token->outfiles)
+	//	while (token->outfiles[i])
+	//		printf(CUSTOM_3 "outfiles->(%s)\n" DEF_COLOR, token->outfiles[i++]);
+	//i = 0;
+	//if (token->infiles)
+	//	while (token->infiles[i])
+	//		printf(CUSTOM_4 "infiles->(%s)\n" DEF_COLOR, token->infiles[i++]);
 }
 //--------------------------------------------------------
-
-void	wait_childs(t_shell	*shell)
-{
-	int	pid;
-	int	status;
-
-	while (1)
-	{
-		pid = waitpid(-1, &status, 0);
-		if (pid <= 0)
-			break ;
-		if (pid == shell->last_pid)
-			shell->exit_status = WEXITSTATUS(status);
-	}
-}
 
 void	main_loop(t_shell	*shell)
 {
@@ -138,10 +123,13 @@ void	main_loop(t_shell	*shell)
 
 			ft_tree_in_order_arg(shell->token_tree, expand_token, shell);
 
-			ft_tree_in_order_arg(shell->token_tree, execute_token, shell);
+			//ft_tree_in_order_arg(shell->token_tree, execute_token, shell);
+			exe_minishell_recursive(shell->token_tree);
+			// waitpid(0, &shell->exit_status, 0);
+			// printf("Exit Status %d\n", shell->exit_status);
 
-			wait_childs(shell);
-
+	// 		wait_childs(shell);
+			
 			//ft_tree_in_order(shell->token_tree, print_tree);
 
 			if (ft_samestr(shell->splitter.str, "exit"))
