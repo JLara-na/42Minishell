@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/14 19:54:02 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/18 21:20:48 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,19 @@ void	free_tree(t_shell	*shell, t_tree	*tree)
 void	print_tree(void *data)
 {
 	t_token	*token;
-	//int		i;
+	int		i;
 
-	//i = 0;
+	i = 0;
 	token = (t_token *)data;
 	printf(YELLOW "NEW TOKEN\n" DEF_COLOR);
 	//printf("token app->[%d]\n", token->append);
 	//printf("token her->[%d]\n", token->heredoc);
-	printf("token str->[%s]\n", token->line);
+	//printf("token str->[%s]\n", token->line);
 	//if (token->cmd)
 	//	printf(CUSTOM_1 "cmd->(%s)\n" DEF_COLOR, token->cmd);
-	//if (token->args)
-	//	while (token->args[i])
-	//		printf(CUSTOM_1 "args->(%s)\n" DEF_COLOR, token->args[i++]);
+	if (token->args)
+		while (token->args[i])
+			printf(CUSTOM_1 "args->(%s)\n" DEF_COLOR, token->args[i++]);
 	//i = 0;
 	//if (token->outfiles)
 	//	while (token->outfiles[i])
@@ -128,7 +128,7 @@ void	main_loop(t_shell	*shell)
 			// waitpid(0, &shell->exit_status, 0);
 			// printf("Exit Status %d\n", shell->exit_status);
 
-	// 		wait_childs(shell);
+	//		wait_childs(shell);
 			
 			//ft_tree_in_order(shell->token_tree, print_tree);
 

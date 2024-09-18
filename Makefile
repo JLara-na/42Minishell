@@ -6,7 +6,7 @@
 #    By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/04 21:24:07 by jlara-na          #+#    #+#              #
-#    Updated: 2024/08/28 18:45:26 by jlara-na         ###   ########.fr        #
+#    Updated: 2024/09/16 19:52:53 by jlara-na         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,6 +120,7 @@ SRC_FILES		=		$(SUB_DIR_1)main					\
 						$(SUB_DIR_3)env						\
 						$(SUB_DIR_3)cd						\
 						$(SUB_DIR_4)exe_tokens				\
+						$(SUB_DIR_4)exe_utils				\
 						$(SUB_DIR_5)signals					\
 						$(SUB_DIR_6)import_env				\
 						$(SUB_DIR_6)search_utils			\
