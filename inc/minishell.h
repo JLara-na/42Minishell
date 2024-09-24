@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/18 21:07:19 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/24 20:42:30 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,14 @@ typedef struct s_token
 {
 	t_shell		*shell;
 	int			append;
-	int			heredoc;
 	char		*line;		//Comandos con sus argumentos y redirecciones
 	char		*cmd;		//El comando
 	char		**args;		//Los argumentos (args[0] es el propio comando)
-	char		**infiles;	
+	char		**infiles;
+	char		**heredoc;
 	char		**outfiles;
 	int			last_outf_fd; // AQUI
+	int			last_inf_fd; // AQUI
 	void		*data;
 }	t_token;
 
@@ -139,6 +140,7 @@ void	child_pipe_redir(t_tree *node, t_token *token, int pid, int fd[2]);
 void	exe_comand_node(t_token	*token, int pid);
 
 void	stdout_redirection(t_token	*token);
+void	stdin_redirection(t_token	*token);
 
 
 int		is_built_in(char	*cmd);

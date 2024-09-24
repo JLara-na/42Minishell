@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/18 21:20:48 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/24 21:28:39 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	free_token(void	*data)
 		ft_free_sarray(token->outfiles);
 	if (token->infiles)
 		ft_free_sarray(token->infiles);
+	if (token->heredoc)
+		ft_free_sarray(token->heredoc);
 	free(token);
 }
 
@@ -128,8 +130,6 @@ void	main_loop(t_shell	*shell)
 			// waitpid(0, &shell->exit_status, 0);
 			// printf("Exit Status %d\n", shell->exit_status);
 
-	//		wait_childs(shell);
-			
 			//ft_tree_in_order(shell->token_tree, print_tree);
 
 			if (ft_samestr(shell->splitter.str, "exit"))

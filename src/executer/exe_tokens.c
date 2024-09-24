@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 21:36:56 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/18 21:29:20 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/24 23:21:27 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,31 +92,6 @@ void	exe_cmd_or_built(t_shell	*shell, t_token	*token)
 	else
 		exe_path_cmd(shell, token);
 }
-/*
-void	execute_token(void *data, void *context)
-{
-	t_token	*token;
-	t_shell	*shell;
-
-	token = (t_token *)data;
-	shell = (t_shell *)context;
-	if (ft_samestr(token->line, PIPE_LINE))
-		return ;
-	if (is_built_in(token->cmd) && ft_tree_size(shell->token_tree) == 1)
-		shell->exit_status = exe_built_in(data, context);
-	shell->last_pid = fork();
-	if (shell->last_pid < 0)
-		perror("");
-	if (shell->last_pid == 0)
-	{
-		if (is_built_in(token->cmd) && ft_tree_size(shell->token_tree) > 1)
-			shell->exit_status = exe_built_in(data, context);
-		else if (!is_built_in(token->cmd))
-			shell->exit_status = exe_path_cmd(shell, token);
-		exit(shell->exit_status);
-	}
-}
-*/
 
 void	wait_childs(t_token	*token, int	twice)
 {
