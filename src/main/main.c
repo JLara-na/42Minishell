@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/26 00:04:17 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:25:44 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	prueba(void)
 */
 void	init_hell(t_shell	*shell, char **envp)
 {
-	printf(RESET_SCREEN HEADER);
+	printf(/*RESET_SCREEN*/ HEADER);
 	ft_bzero(shell, sizeof(t_shell));
 	import_env(shell, envp);
 }
@@ -124,9 +124,10 @@ void	main_loop(t_shell	*shell)
 			ft_tree_in_order_arg(shell->token_tree, tokenize_node, shell);
 
 			ft_tree_in_order_arg(shell->token_tree, expand_token, shell);
-
 			//ft_tree_in_order_arg(shell->token_tree, execute_token, shell);
+			
 			exe_minishell_recursive(shell->token_tree);
+			ft_tree_in_order_arg(shell->token_tree, unlink_heredocs, shell);
 			// waitpid(0, &shell->exit_status, 0);
 			// printf("Exit Status %d\n", shell->exit_status);
 

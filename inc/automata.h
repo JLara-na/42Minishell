@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:35:05 by jvasquez          #+#    #+#             */
-/*   Updated: 2024/08/28 20:48:29 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:55:47 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ typedef enum e_sp_states
 	SP_INVALID,
 	SP_SPACEB,
 	SP_SPACEW,
-	SP_WORDS
+	SP_WORDS,
+	SP_SPACEPIPE
 }	t_sp_states;
 
 typedef enum e_ex_states

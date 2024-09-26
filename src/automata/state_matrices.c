@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:28:01 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/01 21:58:25 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:54:22 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	splitter_get_state(int i, int j)
 {
 	const int	states[][7] = {
 	{0, 8, 2, 4, 6, 7, 11},		// 0  Empty
-	{9, 8, 8, 8, 6, 7, 11},		// 1  Pipe Open (NO CONTEMPLAMOS OR)
+	{12, 8, 2, 4, 6, 7, 11},		// 1  Pipe Open (NO CONTEMPLAMOS OR)
 	{9, 8, 3, 8, 6, 7, 11},		// 2  Less Open
 	{9, 8, 8, 8, 6, 7, 11},		// 3  Heredoc Open
 	{9, 8, 8, 5, 6, 7, 11},		// 4  Greater Open
@@ -29,6 +29,7 @@ int	splitter_get_state(int i, int j)
 	{9, 8, 8, 8, 6, 7, 11},		// 9 Spaces after key
 	{10, 1, 2, 4, 6, 7, 11},	// 10 Spaces between words
 	{10, 1, 2, 4, 6, 7, 11},	// 11 Comands
+	{12, 8, 2, 4, 6, 7, 11},	// 12 Spaces after pipe
 	};
 
 	return (states[i][j]);

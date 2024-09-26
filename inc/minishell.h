@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/26 00:16:37 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/26 17:58:19 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ void	exe_comand_node(t_token	*token, int pid);
 
 void	stdout_redirection(t_token	*token);
 void	stdin_redirection(t_token	*token);
+char	*do_heredoc(char *str, t_token	*token);
+void	unlink_heredocs(void	*token_ptr, void	*shell_ptr);
 
 
 int		is_built_in(char	*cmd);

@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:18:39 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/25 22:29:29 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:59:31 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ void	splitter_sactions_init(t_automata *a)
 
 void	splitter_tactions_init(t_automata *a)
 {
-	a->fta[SP_PIPE][SP_SPACEB] = get_token;
+	a->fta[SP_PIPE][SP_SPACEPIPE] = get_token;
 	a->fta[SP_PIPE][SP_WORDS] = get_token;
 	a->fta[SP_PIPE][SP_DOUBLEQ] = get_token;
 	a->fta[SP_PIPE][SP_SINGLEQ] = get_token;
+	a->fta[SP_PIPE][SP_LESS] = get_token;
+	a->fta[SP_PIPE][SP_GREAT] = get_token;
 	a->fta[SP_SPACEB][SP_PIPE] = get_token;
 	a->fta[SP_SPACEW][SP_PIPE] = get_token;
 	a->fta[SP_WORDS][SP_PIPE] = get_token;

@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:42:25 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/26 01:25:16 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:38:32 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,77 +34,6 @@ void	stdout_redirection(t_token	*token)
 	}
 	if (token->last_outf_fd != -1)
 		dup2(token->last_outf_fd, STDOUT_FILENO);
-}
-
-int	is_heredoc(t_token	*token, char	*str)
-{
-	int	i;
-
-	if (!token->heredoc)
-		return (0);
-	i = -1;
-	while (token->heredoc[++i])
-	{
-		if (ft_samestr(str, token->heredoc[i]))
-			return (1);
-	}
-	return (0);
-}
-
-int	do_heredoc(char *str, t_token	*token)
-{
-	char	*line;
-	int		fd;
-
-	fd = open(/*".heredoc_temp_file"*/str,
-			O_CREAT | O_TRUNC | O_RDWR, 0644);
-	if (fd == -1)
-	{
-		printf("OPEN ERROR\n");
-		return (fd);
-	}
-	line = readline(BLUE ">" DEFAULT_SGR);
-	while (line && (!ft_samestr(str, line)))
-	{
-		expand_line(token, token->shell, &line);
-		if (write(fd, line, ft_strlen(line)))
-			if (write(fd, "\n", 1))
-				free(line);
-		line = readline(BLUE ">" DEFAULT_SGR);
-	}
-	free(line);
-	close(fd);
-	fd = open(".heredoc_temp_file", O_RDONLY);
-	return (fd);
-}
-
-void	stdin_redirection(t_token	*token)
-{
-	int	i;
-
-	i = -1;
-	token->last_inf_fd = -1;
-	if (token->infiles)
-	{
-		while (token->infiles[++i])
-		{
-			if (is_heredoc(token, token->infiles[i]))
-				token->last_inf_fd = do_heredoc(token->infiles[i], token);
-			else
-			{
-				if (access(token->infiles[i], R_OK))
-					return (perror(token->infiles[i]), exit(1));
-				token->last_inf_fd = open(token->infiles[i], O_RDONLY);
-			}
-			if (token->infiles[i + 1])
-				close(token->last_inf_fd);
-		}
-	}
-	if (token->last_inf_fd != -1)
-	{
-		dup2(token->last_inf_fd, STDIN_FILENO);
-		close(token->last_inf_fd);
-	}
 }
 
 void	stdin_stdout_reset(t_token	*token)
@@ -143,7 +72,6 @@ void	child_pipe_redir(t_tree *node, t_token *token, int pid, int fd[2])
 			exe_minishell_recursive(node->right);
 		}
 	}
-	
 	close(fd[WRITE_END]);
 	close(fd[READ_END]);
 }

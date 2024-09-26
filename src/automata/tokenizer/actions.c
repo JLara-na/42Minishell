@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:18:52 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/24 20:41:56 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:07:20 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,16 @@ void	set_infile(t_automata	*a, void	*data)
 {
 	t_token	*token;
 	char	*infile;
+	char	*temp_filename;
 
 	token = (t_token *)data;
 	infile = get_next_word(a);
 	if (a->ostate == TK_HEREDOC)
 	{
-		token->infiles = ft_add_to_sarray(token->infiles, infile);
-		token->heredoc = ft_add_to_sarray(token->heredoc, infile);
+		temp_filename = do_heredoc(infile, token);
+		token->infiles = ft_add_to_sarray(token->infiles, temp_filename);
+		token->heredoc = ft_add_to_sarray(token->heredoc, temp_filename);
+		free(temp_filename);
 	}
 	else
 		token->infiles = ft_add_to_sarray(token->infiles, infile);
