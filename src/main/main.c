@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/24 21:28:39 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/26 00:04:17 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	prueba(void)
 */
 void	init_hell(t_shell	*shell, char **envp)
 {
-	printf(CLEAR HEADER);
+	printf(RESET_SCREEN HEADER);
 	ft_bzero(shell, sizeof(t_shell));
 	import_env(shell, envp);
 }
@@ -95,23 +95,23 @@ void	print_tree(void *data)
 
 	i = 0;
 	token = (t_token *)data;
-	printf(YELLOW "NEW TOKEN\n" DEF_COLOR);
+	printf(YELLOW "NEW TOKEN\n" DEFAULT_SGR);
 	//printf("token app->[%d]\n", token->append);
 	//printf("token her->[%d]\n", token->heredoc);
 	//printf("token str->[%s]\n", token->line);
 	//if (token->cmd)
-	//	printf(CUSTOM_1 "cmd->(%s)\n" DEF_COLOR, token->cmd);
+	//	printf(CUSTOM_101 "cmd->(%s)\n" DEF_COLOR, token->cmd);
 	if (token->args)
 		while (token->args[i])
-			printf(CUSTOM_1 "args->(%s)\n" DEF_COLOR, token->args[i++]);
+			printf(CUSTOM_101 "args->(%s)\n" DEFAULT_SGR, token->args[i++]);
 	//i = 0;
 	//if (token->outfiles)
 	//	while (token->outfiles[i])
-	//		printf(CUSTOM_3 "outfiles->(%s)\n" DEF_COLOR, token->outfiles[i++]);
+	//		printf(CUSTOM_177 "outfiles->(%s)\n" DEF_COLOR, token->outfiles[i++]);
 	//i = 0;
 	//if (token->infiles)
 	//	while (token->infiles[i])
-	//		printf(CUSTOM_4 "infiles->(%s)\n" DEF_COLOR, token->infiles[i++]);
+	//		printf(CUSTOM_208 "infiles->(%s)\n" DEF_COLOR, token->infiles[i++]);
 }
 //--------------------------------------------------------
 

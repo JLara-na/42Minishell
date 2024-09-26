@@ -6,7 +6,7 @@
 #    By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/04 21:24:07 by jlara-na          #+#    #+#              #
-#    Updated: 2024/09/16 19:52:53 by jlara-na         ###   ########.fr        #
+#    Updated: 2024/09/25 23:26:38 by jlara-na         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -152,7 +152,7 @@ $(NAME):	$(OBJ) makelibs
 			@echo "$(CLEAN_LINE)$(CUSTOM_4)MINISHELL		$(GREEN)✔COMPILED CORRECTLY$(DEF_COLOR)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCS) | $(OBJF)
-			@echo "$(CLEAN_LINE)$(YELLOW_BL)$(YELLOW)COMPILING:		⚙$<$(RETURN)"
+			@echo "$(CLEAN_LINE)$(YELLOW_BL)COMPILING:		⚙$<$(RETURN)"
 			@$(CC) $(CFLAGS) -MMD -c $< -o $@
 #			@sleep 0.02
 

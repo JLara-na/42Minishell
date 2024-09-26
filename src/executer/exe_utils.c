@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:42:25 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/25 00:05:40 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/26 01:25:16 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,25 +51,26 @@ int	is_heredoc(t_token	*token, char	*str)
 	return (0);
 }
 
-int	do_heredoc(char *str)
+int	do_heredoc(char *str, t_token	*token)
 {
 	char	*line;
 	int		fd;
 
-	fd = open(".heredoc_temp_file",
+	fd = open(/*".heredoc_temp_file"*/str,
 			O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (fd == -1)
 	{
 		printf("OPEN ERROR\n");
 		return (fd);
 	}
-	line = readline(BLUE ">" DEF_COLOR);
+	line = readline(BLUE ">" DEFAULT_SGR);
 	while (line && (!ft_samestr(str, line)))
 	{
+		expand_line(token, token->shell, &line);
 		if (write(fd, line, ft_strlen(line)))
 			if (write(fd, "\n", 1))
 				free(line);
-		line = readline(BLUE ">" DEF_COLOR);
+		line = readline(BLUE ">" DEFAULT_SGR);
 	}
 	free(line);
 	close(fd);
@@ -88,7 +89,7 @@ void	stdin_redirection(t_token	*token)
 		while (token->infiles[++i])
 		{
 			if (is_heredoc(token, token->infiles[i]))
-				token->last_inf_fd = do_heredoc(token->infiles[i]);
+				token->last_inf_fd = do_heredoc(token->infiles[i], token);
 			else
 			{
 				if (access(token->infiles[i], R_OK))
@@ -142,6 +143,7 @@ void	child_pipe_redir(t_tree *node, t_token *token, int pid, int fd[2])
 			exe_minishell_recursive(node->right);
 		}
 	}
+	
 	close(fd[WRITE_END]);
 	close(fd[READ_END]);
 }

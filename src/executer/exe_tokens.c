@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 21:36:56 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/24 23:21:27 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/09/26 00:45:32 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	wait_childs(t_token	*token, int	twice)
 		exit(token->shell->exit_status);
 }
 
-void		exe_minishell_recursive(t_tree	*node)
+void	exe_minishell_recursive(t_tree	*node)
 {
 	t_token	*token;
 	int		pid;
