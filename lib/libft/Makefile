@@ -6,7 +6,7 @@
 #    By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/13 17:02:15 by jlara-na          #+#    #+#              #
-#    Updated: 2024/08/21 21:57:21 by jlara-na         ###   ########.fr        #
+#    Updated: 2024/09/26 23:49:27 by jlara-na         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ CC = gcc -Werror -Wextra -Wall
 all: $(NAME)
 
 msg:
-	@echo "\033[2K\033[0;33;5m\033[0;33mCOMPILING:		⚙LIBFT\033[0m\033[1A"
+	@echo "\033[2K\033[0;33;5m\033[0;33mCOMPILING:		⚙ LIBFT\033[0m\033[1A"
 
 $(NAME): msg $(FILES_O)
 	@ar -rc $(NAME) $(FILES_O)

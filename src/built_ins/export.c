@@ -6,13 +6,11 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 22:57:37 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/12 18:53:43 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/10/30 22:08:46 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-
 
 void	add_new_var(t_list	*enviroment, t_var	*newvar)
 {

@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:33:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/26 19:07:57 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/10/30 22:12:43 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ void	unlink_heredocs(void	*token_ptr, void	*shell_ptr)
 	if (token->heredoc)
 	{
 		while (token->heredoc[++i])
-		{
 			unlink(token->heredoc[i]);
-		}
 	}
 }
 

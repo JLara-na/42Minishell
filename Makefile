@@ -6,7 +6,7 @@
 #    By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/04 21:24:07 by jlara-na          #+#    #+#              #
-#    Updated: 2024/09/26 19:05:30 by jlara-na         ###   ########.fr        #
+#    Updated: 2024/09/26 23:49:06 by jlara-na         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -150,10 +150,10 @@ $(NAME):	$(OBJ) makelibs
 #			@echo "$(BLUE)$(CC) $(CFLAGS) $(OBJ) $(READLINE_FLAG) $(LIBFT) -o $(NAME)$(DEF_COLOR)"
 			@$(CC) $(CFLAGS) $(OBJ) $(READLINE_FLAG) $(LIBFT) -o $(NAME)
 			@echo "$(CLEAN_LINE)$(CUSTOM_4)FLAGS USED		$(CUSTOM_1)$(CC)$(CFLAGS) $(READLINE_FLAG)$(DEF_COLOR)"
-			@echo "$(CLEAN_LINE)$(CUSTOM_4)MINISHELL		$(GREEN)✔COMPILED CORRECTLY$(DEF_COLOR)"
+			@echo "$(CLEAN_LINE)$(CUSTOM_4)MINISHELL		$(GREEN)✔ COMPILED CORRECTLY$(DEF_COLOR)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCS) | $(OBJF)
-			@echo "$(CLEAN_LINE)$(YELLOW_BL)COMPILING:		⚙$<$(RETURN)"
+			@echo "$(CLEAN_LINE)$(YELLOW_BL)COMPILING:		⚙ $<$(RETURN)"
 			@$(CC) $(CFLAGS) -MMD -c $< -o $@
 #			@sleep 0.02
 
@@ -176,19 +176,19 @@ $(LIBFT):
 
 clean:
 			@$(RM) -rf $(OBJ_DIR)
-			@echo "$(CUSTOM_4)OBJ FILES		$(GREEN)✔CLEANED$(DEF_COLOR)"
+			@echo "$(CUSTOM_4)OBJ FILES		$(GREEN)✔ CLEANED$(DEF_COLOR)"
 			@make clean -sC $(LFT_DIR)
-			@echo "$(CUSTOM_4)LIBFT			$(GREEN)✔CLEANED$(DEF_COLOR)"
+			@echo "$(CUSTOM_4)LIBFT			$(GREEN)✔ CLEANED$(DEF_COLOR)"
 
 fclean:		clean
 			@$(RM) -f $(LIBFT)
-			@echo "$(CUSTOM_4)LIBFT.a			$(GREEN)✔CLEANED$(DEF_COLOR)"
+			@echo "$(CUSTOM_4)LIBFT.a			$(GREEN)✔ CLEANED$(DEF_COLOR)"
 			@$(RM) -f $(NAME)
-			@echo "$(CUSTOM_4)MINISHELL EXECUTABLE	$(GREEN)✔CLEANED$(DEF_COLOR)"
+			@echo "$(CUSTOM_4)MINISHELL EXECUTABLE	$(GREEN)✔ CLEANED$(DEF_COLOR)"
 
 re:			fclean
 			@$(MAKE)
-			@echo "$(CLEAN_LINE)$(CUSTOM_4)MINISHELL		$(GREEN)✔CLEANED, REBUILT & READY TO USE$(DEF_COLOR)"
+			@echo "$(CLEAN_LINE)$(CUSTOM_4)MINISHELL		$(GREEN)✔ CLEANED, REBUILT & READY TO USE$(DEF_COLOR)"
 
 norminette:
 			@echo "$(CLEAR)"

@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/26 17:58:19 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/20 04:30:44 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef enum e_pipe_fd
 }	t_pipe_fd;
 
 # ifndef M_SHELL_PROMPT
-#  define M_SHELL_PROMPT "$minishell> "
+#  define M_SHELL_PROMPT "$minishell:"
 # endif
 
 # ifndef MSG_BYE
@@ -84,14 +84,13 @@ typedef struct s_shell
 	t_automata	tokenizer;	//automata para tokenizar
 	t_tree		*token_tree;	//arbol que contiene las lineas entre pipes
 	t_list		*enviroment;
-	t_list		*export_env;
+	// t_list		*export_env;
 	pid_t		last_pid;
 	int			child;		//VARIABLE PARA SABER SI EL PROCESO ES UN HIJO CON POSIBES PROCESOS HIIJOS
 	int			exit_status;
 	char		*readline;
 	char		**default_env;
 	char		**path_var; //Revisar si es necesario o no
-
 }	t_shell;
 
 typedef struct s_token
@@ -121,10 +120,10 @@ typedef struct s_var
 //Enviroment funcions
 
 void	import_env(t_shell	*shell, char **env);
+void	add_new_var(t_list	*enviroment, t_var	*newvar);
 t_bool	find_var(void *content, void *context);
 char	*find_value(t_list	*env, char	*name);
 t_var	*create_var(char *name, char *value);
-
 
 //Parsing functions
 
@@ -146,19 +145,17 @@ void	stdin_redirection(t_token	*token);
 char	*do_heredoc(char *str, t_token	*token);
 void	unlink_heredocs(void	*token_ptr, void	*shell_ptr);
 
-
 int		is_built_in(char	*cmd);
 int		exe_built_in(void	*data, void	*context);
 void	exe_path_cmd(t_shell	*shell, t_token	*token);
 void	exe_cmd_or_built(t_shell	*shell, t_token	*token);
-
 
 //void	execute_token(void *data, void *context);
 //int		exe_built_in(void	*data, void	*context);
 
 //Built-in functions
 
-int		built_in_cd(t_shell	*shell);
+int		built_in_cd(t_shell *shell, t_token	*token);
 int		built_in_pwd(t_shell	*shell);
 int		built_in_env(t_shell	*shell);
 int		built_in_exit(t_shell	*shell);

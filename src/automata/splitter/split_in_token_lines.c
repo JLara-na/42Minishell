@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 21:16:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/26 00:05:15 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/20 04:36:47 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 int	split_in_token_lines(t_shell	*shell)
 {
-	int	a_state;
+	int		a_state;
+	char	*prompt;
+	char	*pwd = NULL;
 
+	pwd = getcwd(pwd, PATH_MAX);
+	prompt = ft_strjoinfree(CUSTOM_208 M_SHELL_PROMPT CUSTOM_87 "~", pwd, 1);
+	prompt = ft_strjoinfree(prompt, CUSTOM_208 "> " DEFAULT_SGR, 0);
 	splitter_automata_init(&shell->splitter, shell);
-	shell->splitter.str = readline(CUSTOM_208 M_SHELL_PROMPT DEFAULT_SGR);
+	shell->splitter.str = readline(prompt);
+	free(prompt);
 	add_history(shell->splitter.str);
 	a_state = evaluate(&shell->splitter);
 	get_token(&shell->splitter, shell);
