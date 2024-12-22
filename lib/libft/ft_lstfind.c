@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 20:42:19 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/08/21 21:57:57 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/22 03:58:27 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_list	*ft_lstfind(t_list *lst, t_bool (*f)(void *, void *), void *context)
 {
-	if (!lst || !f)
+	if (!lst || !f || !lst->content)
 		return (NULL);
 	while (lst)
 	{

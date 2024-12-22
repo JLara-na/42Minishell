@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 23:13:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/10 18:32:38 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/22 01:56:42 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,12 @@ void	free_env(t_shell	*shell)
 	while (node)
 	{
 		var = (t_var *)(node->content);
-		free(var->name);
-		free(var->value);
-		free(var);
+		if (var->name)
+			free(var->name);
+		if (var->value)
+			free(var->value);
+		if (var)
+			free(var);
 		aux = node->next;
 		free(node);
 		node = aux;

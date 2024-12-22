@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:42:25 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/26 13:38:32 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:56:00 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	stdin_stdout_reset(t_token	*token)
 	int	fd_out;
 	int	fd_in;
 
-	(void)token;
 	fd_in = dup(STDIN_FILENO);
 	fd_out = dup(STDOUT_FILENO);
 	dup2(STDIN_FILENO, token->last_inf_fd);
@@ -49,7 +48,6 @@ void	stdin_stdout_reset(t_token	*token)
 	close(fd_in);
 	close(fd_out);
 }
-
 
 void	child_pipe_redir(t_tree *node, t_token *token, int pid, int fd[2])
 {
