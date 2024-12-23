@@ -6,11 +6,21 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 21:12:06 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/07/15 22:20:19 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/23 17:36:49 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+int	ft_sarraysize(char **array)
+{
+	int	count;
+
+	count = 0;
+	while (array[count] != NULL)
+		count++;
+	return (count);
+}
 
 char	**ft_add_to_sarray(char	**array, char	*str)
 {

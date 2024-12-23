@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:33:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/10/30 22:12:43 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/23 16:33:11 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,10 @@ char	*do_heredoc(char *str, t_token	*token)
 	char	*filename;
 	int		fd;
 
-	(void)token;
 	filename = new_temp_file();
 	fd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (fd == -1)
-	{
-		printf("OPEN ERROR\n");
-		return (NULL);
-	}
+		return (printf("OPEN ERROR\n"), NULL);
 	line = readline(CUSTOM_220 ">" DEFAULT_SGR);
 	while (line && (!ft_samestr(str, line)))
 	{

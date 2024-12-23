@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 22:57:31 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/23 02:27:54 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/23 17:12:19 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int	built_in_echo(t_token	*token)
 	}
 	while (token->args[i])
 	{
-		printf("%s", token->args[i++]);
+		ft_putstr_fd(token->args[i++], 1);
 		if (token->args[i])
-			printf(" ");
+			ft_putstr_fd(" ", 1);
 	}
 	if (!n_flag)
-		return (printf("\n"), EXIT_SUCCESS);
+		ft_putstr_fd("\n", 1);
 	return (EXIT_SUCCESS);
 }

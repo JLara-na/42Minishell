@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:42:25 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/20 17:56:00 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/23 16:47:38 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,33 @@ void	stdout_redirection(t_token	*token)
 	}
 	if (token->last_outf_fd != -1)
 		dup2(token->last_outf_fd, STDOUT_FILENO);
+	return ;
 }
 
-void	stdin_stdout_reset(t_token	*token)
+void	stdin_stdout_reset(t_token	*token, int saved_std[2])
 {
-	int	fd_out;
-	int	fd_in;
-
-	fd_in = dup(STDIN_FILENO);
-	fd_out = dup(STDOUT_FILENO);
-	dup2(STDIN_FILENO, token->last_inf_fd);
-	dup2(STDOUT_FILENO, token->last_outf_fd);
-	close(fd_in);
-	close(fd_out);
+	if (dup2(saved_std[0], STDIN_FILENO) == -1)
+	{
+		perror("dup2 stdin");
+		close(token->last_outf_fd);
+		close(token->last_inf_fd);
+		close(saved_std[0]);
+		close(saved_std[1]);
+		return ;
+	}
+	if (dup2(saved_std[1], STDOUT_FILENO) == -1)
+	{
+		perror("dup2 stdout");
+		close(token->last_outf_fd);
+		close(token->last_inf_fd);
+		close(saved_std[0]);
+		close(saved_std[1]);
+		return ;
+	}
+	close(token->last_outf_fd);
+	close(token->last_inf_fd);
+	close(saved_std[0]);
+	close(saved_std[1]);
 }
 
 void	child_pipe_redir(t_tree *node, t_token *token, int pid, int fd[2])
@@ -80,10 +94,7 @@ void	exe_comand_node(t_token	*token, int pid)
 	{
 		if (is_built_in(token->cmd))
 		{
-			stdin_redirection(token);
-			stdout_redirection(token);
-			exe_built_in(token, token->shell); // AQUI RED BUILT INS SIN PIPES
-			stdin_stdout_reset(token);
+			exe_built_in_with_redirs(token->shell, token);
 		}
 		else
 		{
@@ -99,7 +110,7 @@ void	exe_comand_node(t_token	*token, int pid)
 	}
 	else
 	{
-		stdin_redirection(token); // REVISAR EL USO DE HEREDOC CUANDO HAY PIPES
+		stdin_redirection(token);
 		stdout_redirection(token);
 		exe_cmd_or_built(token->shell, token);
 	}
