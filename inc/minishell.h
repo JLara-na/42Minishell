@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/22 03:57:47 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/23 02:28:08 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int		built_in_cd(t_shell *shell, t_token	*token);
 int		built_in_pwd(t_shell	*shell);
 int		built_in_env(t_shell	*shell);
 int		built_in_exit(t_shell	*shell);
-int		built_in_echo(t_shell	*shell);
+int		built_in_echo(t_token	*token);
 int		built_in_unset(t_shell	*shell, t_token	*token);
 int		built_in_export(t_shell *shell, t_token	*token);
 
