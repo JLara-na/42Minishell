@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/23 16:35:13 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/27 01:29:57 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # include "readline/readline.h"
 
 //-----------------------------------DEFINES----------------------------------//
+
+extern int	g_signal_data;
 
 # ifndef FALSE
 #  define FALSE 0
@@ -167,8 +169,11 @@ int		built_in_export(t_shell *shell, t_token	*token);
 
 //Utils
 
+char	*generate_prompt(void);
 void	free_env(t_shell	*shell);
-int		signals_init(void);
+void	set_sig_handler(void (handler)(int signum), int sigquit_status);
+void	standard_handler(int signum);
+void	heredoc_handler(int signum);
 
 //Delete Later
 

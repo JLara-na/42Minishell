@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 18:18:47 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/23 18:42:33 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/24 17:34:51 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	exe_path_cmd(t_shell	*shell, t_token	*token)
 			free(full_cmd);
 		}
 	}
-	free(path_var);
+	else
+		free(path_var);
 	if (!access(token->cmd, X_OK))
 		execve(token->cmd, token->args, shell->default_env);
 	exit(set_exit_status(token->cmd, errno));

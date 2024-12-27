@@ -6,13 +6,11 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 21:36:56 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/23 18:19:39 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/26 23:09:26 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-
 
 void	exe_cmd_or_built(t_shell	*shell, t_token	*token)
 {

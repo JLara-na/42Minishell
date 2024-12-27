@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:42:25 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/23 16:47:38 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/27 00:18:53 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	child_pipe_redir(t_tree *node, t_token *token, int pid, int fd[2])
 	pid = fork();
 	if (!pid)
 	{
+		set_sig_handler(SIG_DFL, 1);
 		dup2(fd[WRITE_END], STDOUT_FILENO);
 		close(fd[READ_END]);
 		token->shell->child = 1;
@@ -78,6 +79,7 @@ void	child_pipe_redir(t_tree *node, t_token *token, int pid, int fd[2])
 		pid = fork();
 		if (!pid)
 		{
+			set_sig_handler(SIG_DFL, 1);
 			dup2(fd[READ_END], STDIN_FILENO);
 			close(fd[WRITE_END]);
 			token->shell->child = 1;
@@ -101,6 +103,7 @@ void	exe_comand_node(t_token	*token, int pid)
 			pid = fork();
 			if (!pid)
 			{
+				set_sig_handler(SIG_DFL, 1);
 				stdin_redirection(token);
 				stdout_redirection(token);
 				exe_path_cmd(token->shell, token);

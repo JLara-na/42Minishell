@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:33:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/23 16:33:11 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/27 14:00:50 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,32 @@ char	*new_temp_file(void)
 	return (filename);
 }
 
-char	*do_heredoc(char *str, t_token	*token)
-{
-	char	*line;
-	char	*filename;
-	int		fd;
+// char	*do_heredoc(char *str, t_token	*token)
+// {
+// 	char	*line;
+// 	char	*filename;
+// 	int		fd;
 
-	filename = new_temp_file();
-	fd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
-	if (fd == -1)
-		return (printf("OPEN ERROR\n"), NULL);
-	line = readline(CUSTOM_220 ">" DEFAULT_SGR);
-	while (line && (!ft_samestr(str, line)))
-	{
-		if (!ft_samestr("", line))
-		{
-			expand_line(token, token->shell, &line);
-			ft_putstr_fd(line, fd);
-		}
-		ft_putchar_fd('\n', fd);
-		free(line);
-		line = readline(CUSTOM_220 ">" DEFAULT_SGR);
-	}
-	free(line);
-	close(fd);
-	return (filename);
-}
+// 	filename = new_temp_file();
+// 	fd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
+// 	if (fd == -1)
+// 		return (printf("OPEN ERROR\n"), NULL);
+// 	line = readline(CUSTOM_220 ">" DEFAULT_SGR);
+// 	while (line && (!ft_samestr(str, line)))
+// 	{
+// 		if (!ft_samestr("", line))
+// 		{
+// 			expand_line(token, token->shell, &line);
+// 			ft_putstr_fd(line, fd);
+// 		}
+// 		ft_putchar_fd('\n', fd);
+// 		free(line);
+// 		line = readline(CUSTOM_220 ">" DEFAULT_SGR);
+// 	}
+// 	free(line);
+// 	close(fd);
+// 	return (filename);
+// }
 
 void	stdin_redirection(t_token	*token)
 {
@@ -93,4 +93,55 @@ void	stdin_redirection(t_token	*token)
 		dup2(token->last_inf_fd, STDIN_FILENO);
 		close(token->last_inf_fd);
 	}
+}
+
+void	listen_and_write(t_token *token, char	*str, int fd)
+{
+	char	*line;
+
+	set_sig_handler(heredoc_handler, 0);
+	while (1)
+	{
+		line = readline(CUSTOM_220 ">" DEFAULT_SGR);
+		if (g_signal_data)
+		{
+			g_signal_data = 0;
+			break ;
+		}
+		if (!line)
+			break ;
+		if (ft_samestr(str, line))
+			break ;
+		if (!ft_samestr("", line))
+		{
+			expand_line(token, token->shell, &line);
+			ft_putstr_fd(line, fd);
+		}
+		ft_putchar_fd('\n', fd);
+		free(line);
+	}
+	free(line);
+	close(fd);
+	exit(EXIT_SUCCESS);
+}
+
+char	*do_heredoc(char *str, t_token	*token)
+{
+	char	*filename;
+	int		fd;
+	int		pid;
+	int		exit_status;
+
+	filename = new_temp_file();
+	fd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
+	if (fd == -1)
+		return (printf("OPEN ERROR\n"), NULL);
+	pid = fork();
+	if (!pid)
+		listen_and_write(token, str, fd);
+	else
+		wait(&exit_status);
+	if (g_signal_data == SIGINT)
+		return (NULL);
+	return (filename);
 }
