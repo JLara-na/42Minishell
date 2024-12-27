@@ -6,33 +6,36 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 23:13:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/22 01:56:42 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/27 23:44:37 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	get_path_var(t_shell	*shell)
+char	**get_path_var(t_shell	*shell)
 {
+	char	**paths;
 	char	*path_value;
 	int		i;
 
 	i = -1;
+	paths = NULL;
 	path_value = find_value(shell->enviroment, "PATH");
-	shell->path_var = ft_split(path_value, ':');
+	paths = ft_split(path_value, ':');
 	free(path_value);
-	if (shell->path_var)
+	if (paths)
 	{
-		while (shell->path_var[++i])
-			shell->path_var[i] = ft_strjoinfree(shell->path_var[i], "/", 0);
+		while (paths[++i])
+			paths[i] = ft_strjoinfree(paths[i], "/", 0);
 	}
+	return (paths);
 }
 
 t_var	*create_var(char *name, char *value)
 {
 	t_var	*var;
 
-	var = calloc(1, sizeof(t_var));
+	var = ft_calloc(1, sizeof(t_var));
 	var->name = name;
 	var->value = value;
 	return (var);
@@ -59,6 +62,27 @@ void	free_env(t_shell	*shell)
 		node = aux;
 	}
 	ft_free_sarray(shell->path_var);
+	ft_free_sarray(shell->default_env);
+}
+
+void	update_default_env(t_shell	*shell)
+{
+	t_list	*aux;
+	t_var	*var;
+	char	*full_var;
+
+	full_var = NULL;
+	var = NULL;
+	aux = shell->enviroment;
+	while (aux)
+	{
+		var = (t_var *)aux->content;
+		full_var = ft_strjoin(var->name, "=");
+		full_var = ft_strjoinfree(full_var, var->value, 0);
+		shell->default_env = ft_add_to_sarray(shell->default_env, full_var);
+		free(full_var);
+		aux = aux->next;
+	}
 }
 
 void	import_env(t_shell	*shell, char **env)
@@ -68,7 +92,6 @@ void	import_env(t_shell	*shell, char **env)
 
 	i = -1;
 	shell->enviroment = NULL;
-	shell->default_env = env;
 	while (env[++i])
 	{
 		j = -1;
@@ -80,5 +103,4 @@ void	import_env(t_shell	*shell, char **env)
 							ft_substr(env[i], j + 1, INT_MAX))));
 		}
 	}
-	get_path_var(shell);
 }

@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 21:16:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/26 22:46:35 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/27 20:48:53 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int	split_in_token_lines(t_shell	*shell)
 	shell->splitter.str = readline(prompt);
 	free(prompt);
 	if (shell->splitter.str == NULL)
-		built_in_exit(shell);
+	{
+		printf(MSG_BYE);
+		exit(EXIT_SUCCESS);
+	}
 	add_history(shell->splitter.str);
 	a_state = evaluate(&shell->splitter);
 	get_token(&shell->splitter, shell);

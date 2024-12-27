@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 04:02:47 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/23 16:34:48 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/27 20:44:00 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	exe_built_in(void	*data, void	*context)
 	if (ft_samestr(token->cmd, ENV_BUILT))
 		return (shell->exit_status = built_in_env(shell));
 	if (ft_samestr(token->cmd, EXIT_BUILT))
-		return (shell->exit_status = built_in_exit(shell));
+		return (shell->exit_status = built_in_exit(shell, token));
 	if (ft_samestr(token->cmd, EXPORT_BUILT))
 		return (shell->exit_status = built_in_export(shell, token));
 	if (ft_samestr(token->cmd, PWD_BUILT))

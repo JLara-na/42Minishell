@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/27 01:29:57 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/27 23:27:54 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,32 +81,31 @@ typedef enum e_pipe_fd
 
 typedef struct s_shell
 {
-	t_automata	splitter;	//automata para comprobar la validez
-	t_automata	expander;	//automata para expandir la linea
-	t_automata	tokenizer;	//automata para tokenizar
-	t_tree		*token_tree;	//arbol que contiene las lineas entre pipes
+	t_automata	splitter;
+	t_automata	expander;
+	t_automata	tokenizer;
+	t_tree		*token_tree;
 	t_list		*enviroment;
 	pid_t		last_pid;
-	int			child;		//VARIABLE PARA SABER SI EL PROCESO 
-							//ES UN HIJO CON POSIBES PROCESOS HIIJOS
+	int			child;
 	int			exit_status;
 	char		*readline;
 	char		**default_env;
-	char		**path_var; //Revisar si es necesario o no
+	char		**path_var;
 }	t_shell;
 
 typedef struct s_token
 {
 	t_shell		*shell;
 	int			append;
-	char		*line;		//Comandos con sus argumentos y redirecciones
-	char		*cmd;		//El comando
-	char		**args;		//Los argumentos (args[0] es el propio comando)
+	char		*line;
+	char		*cmd;
+	char		**args;
 	char		**infiles;
 	char		**heredoc;
 	char		**outfiles;
-	int			last_outf_fd; // AQUI
-	int			last_inf_fd; // AQUI
+	int			last_outf_fd;
+	int			last_inf_fd;
 	void		*data;
 }	t_token;
 
@@ -126,6 +125,8 @@ void	add_new_var(t_list	*enviroment, t_var	*newvar);
 t_bool	find_var(void *content, void *context);
 char	*find_value(t_list	*env, char	*name);
 t_var	*create_var(char *name, char *value);
+void	update_default_env(t_shell	*shell);
+char	**get_path_var(t_shell	*shell);
 
 //Parsing functions
 
@@ -138,31 +139,25 @@ void	expand_line(t_token	*token, t_shell	*shell, char	**str);
 
 void	exe_minishell_recursive(t_tree	*tree);
 void	wait_childs(t_token	*token, int twice);
-
 void	child_pipe_redir(t_tree *node, t_token *token, int pid, int fd[2]);
 void	exe_comand_node(t_token	*token, int pid);
-
 void	stdout_redirection(t_token	*token);
 void	stdin_redirection(t_token	*token);
 char	*do_heredoc(char *str, t_token	*token);
 void	unlink_heredocs(void	*token_ptr, void	*shell_ptr);
 void	stdin_stdout_reset(t_token	*token, int saved_std[2]);
 void	exe_built_in_with_redirs(t_shell	*shell, t_token	*token);
-
 int		is_built_in(char	*cmd);
 int		exe_built_in(void	*data, void	*context);
 void	exe_path_cmd(t_shell	*shell, t_token	*token);
 void	exe_cmd_or_built(t_shell	*shell, t_token	*token);
-
-//void	execute_token(void *data, void *context);
-//int		exe_built_in(void	*data, void	*context);
 
 //Built-in functions
 
 int		built_in_cd(t_shell *shell, t_token	*token);
 int		built_in_pwd(t_shell	*shell);
 int		built_in_env(t_shell	*shell);
-int		built_in_exit(t_shell	*shell);
+int		built_in_exit(t_shell	*shell, t_token	*token);
 int		built_in_echo(t_token	*token);
 int		built_in_unset(t_shell	*shell, t_token	*token);
 int		built_in_export(t_shell *shell, t_token	*token);
@@ -174,10 +169,6 @@ void	free_env(t_shell	*shell);
 void	set_sig_handler(void (handler)(int signum), int sigquit_status);
 void	standard_handler(int signum);
 void	heredoc_handler(int signum);
-
-//Delete Later
-
-void	print_tree(void *data);
 
 //----------------------------------ERROR MSG---------------------------------//
 

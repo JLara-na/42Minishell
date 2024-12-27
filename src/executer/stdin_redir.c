@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:33:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/27 14:00:50 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/27 19:55:49 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,33 +38,6 @@ char	*new_temp_file(void)
 	free(file_num_str);
 	return (filename);
 }
-
-// char	*do_heredoc(char *str, t_token	*token)
-// {
-// 	char	*line;
-// 	char	*filename;
-// 	int		fd;
-
-// 	filename = new_temp_file();
-// 	fd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
-// 	if (fd == -1)
-// 		return (printf("OPEN ERROR\n"), NULL);
-// 	line = readline(CUSTOM_220 ">" DEFAULT_SGR);
-// 	while (line && (!ft_samestr(str, line)))
-// 	{
-// 		if (!ft_samestr("", line))
-// 		{
-// 			expand_line(token, token->shell, &line);
-// 			ft_putstr_fd(line, fd);
-// 		}
-// 		ft_putchar_fd('\n', fd);
-// 		free(line);
-// 		line = readline(CUSTOM_220 ">" DEFAULT_SGR);
-// 	}
-// 	free(line);
-// 	close(fd);
-// 	return (filename);
-// }
 
 void	stdin_redirection(t_token	*token)
 {
@@ -108,9 +81,7 @@ void	listen_and_write(t_token *token, char	*str, int fd)
 			g_signal_data = 0;
 			break ;
 		}
-		if (!line)
-			break ;
-		if (ft_samestr(str, line))
+		if (!line || ft_samestr(str, line))
 			break ;
 		if (!ft_samestr("", line))
 		{

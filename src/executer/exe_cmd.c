@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 18:18:47 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/24 17:34:51 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/27 23:58:00 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,30 +22,43 @@ int	set_exit_status(char	*cmd, int error_number)
 	return (0);
 }
 
-void	exe_path_cmd(t_shell	*shell, t_token	*token)
+void	execute_multiple_paths(t_shell *shell, t_token *token, char **paths)
 {
-	int		i;
 	char	*full_cmd;
-	char	*path_var;
+	int		i;
 
 	i = -1;
 	full_cmd = NULL;
+	while (paths[++i])
+	{
+		full_cmd = ft_strjoin(paths[i], token->cmd);
+		if (!access(full_cmd, X_OK))
+			execve(full_cmd, token->args, shell->default_env);
+		free(full_cmd);
+	}
+}
+
+void	exe_path_cmd(t_shell *shell, t_token *token)
+{
+	char	*path_var;
+	char	**paths;
+
 	errno = 0;
 	path_var = find_value(shell->enviroment, "PATH");
+	paths = get_path_var(shell);
+	update_default_env(shell);
 	if (!ft_strchr(token->cmd, '/') && path_var)
 	{
 		free(path_var);
-		while (shell->path_var[++i])
-		{
-			full_cmd = ft_strjoin(shell->path_var[i], token->cmd);
-			if (!access(full_cmd, X_OK))
-				execve(full_cmd, token->args, shell->default_env);
-			free(full_cmd);
-		}
+		execute_multiple_paths(shell, token, paths);
 	}
 	else
+	{
+		if (!access(token->cmd, X_OK))
+			execve(token->cmd, token->args, shell->default_env);
 		free(path_var);
-	if (!access(token->cmd, X_OK))
-		execve(token->cmd, token->args, shell->default_env);
+	}
+	ft_free_sarray(paths);
+	ft_free_sarray(shell->default_env);
 	exit(set_exit_status(token->cmd, errno));
 }

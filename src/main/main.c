@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/27 15:21:18 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/27 23:55:15 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,6 @@ char	*generate_prompt(void)
 	prompt = ft_strjoinfree(CUSTOM_208 M_SHELL_PROMPT CUSTOM_87 "~", pwd, 1);
 	prompt = ft_strjoinfree(prompt, CUSTOM_208 "> " DEFAULT_SGR, 0);
 	return (prompt);
-}
-
-void	init_hell(t_shell	*shell, char **envp)
-{
-	g_signal_data = 0;
-	set_sig_handler(standard_handler, 0);
-	printf(HEADER);
-	ft_bzero(shell, sizeof(t_shell));
-	import_env(shell, envp);
 }
 
 void	free_token(void	*data)
@@ -65,32 +56,6 @@ void	free_tree(t_shell	*shell, t_tree	*tree)
 		shell->token_tree = NULL;
 	}
 }
-//---------------------- TREE FTS-------------------------
-
-void	print_tree(void *data)
-{
-	t_token	*token;
-	int		i;
-
-	i = 0;
-	token = (t_token *)data;
-	printf(YELLOW "NEW TOKEN\n" DEFAULT_SGR);
-	printf("token str->[%s]\n", token->line);
-	if (token->cmd)
-		printf("cmd->(%s)\n", token->cmd);
-	if (token->args)
-		while (token->args[i])
-			printf(CUSTOM_101 "args->(%s)\n" DEFAULT_SGR, token->args[i++]);
-	i = 0;
-	if (token->outfiles)
-		while (token->outfiles[i])
-			printf("outfiles->(%s)\n", token->outfiles[i++]);
-	i = 0;
-	if (token->infiles)
-		while (token->infiles[i])
-			printf("infiles->(%s)\n", token->infiles[i++]);
-}
-//--------------------------------------------------------
 
 void	main_loop(t_shell	*shell)
 {
@@ -108,17 +73,13 @@ void	main_loop(t_shell	*shell)
 				exe_minishell_recursive(shell->token_tree);
 			}
 			ft_tree_in_order_arg(shell->token_tree, unlink_heredocs, shell);
-			//printf("Exit Status %d\n", shell->exit_status);
-			// ft_tree_in_order(shell->token_tree, print_tree);
 		}
-		printf(RED "%d\n" DEFAULT_SGR, g_signal_data);
+		ft_free_sarray(shell->default_env);
+		ft_free_sarray(shell->path_var);
 		free_tree(shell, shell->token_tree);
 		free(shell->splitter.str);
 		set_sig_handler(standard_handler, 0);
 	}
-	free(shell->splitter.str);
-	free_tree(shell, shell->token_tree);
-	free_env(shell);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -127,7 +88,11 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
-	init_hell(&shell, envp);
+	g_signal_data = 0;
+	set_sig_handler(standard_handler, 0);
+	printf(HEADER);
+	ft_bzero(&shell, sizeof(t_shell));
+	import_env(&shell, envp);
 	main_loop(&shell);
 	printf(MSG_BYE);
 	return (EXIT_SUCCESS);
