@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:17:36 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/26 00:43:03 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/28 00:11:09 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@
 */
 # ifndef SGR_PARAMETERS
 #  define SGR_PARAMETERS
-#  define DEFAULT_SGR			"\033[m"
+#  define DEFAULT_SGR			"\001\033[m\002"
 #  define FONT_BOLD				"\033[1m"
 #  define FONT_FAINT			"\033[2m"
 #  define FONT_ITALIC			"\033[3m"
@@ -213,7 +213,7 @@
 #  define CUSTOM_84				"\033[38:5:84m"
 #  define CUSTOM_85				"\033[38:5:85m"
 #  define CUSTOM_86				"\033[38:5:86m"
-#  define CUSTOM_87				"\033[38:5:87m"
+#  define CUSTOM_87				"\001\033[38:5:87m\002"
 #  define CUSTOM_88				"\033[38:5:88m"
 #  define CUSTOM_89				"\033[38:5:89m"
 #  define CUSTOM_90				"\033[38:5:90m"
@@ -334,7 +334,7 @@
 #  define CUSTOM_205			"\033[38:5:205m"
 #  define CUSTOM_206			"\033[38:5:206m"
 #  define CUSTOM_207			"\033[38:5:207m"
-#  define CUSTOM_208			"\033[38:5:208m"
+#  define CUSTOM_208			"\001\033[38:5:208m\002"
 #  define CUSTOM_209			"\033[38:5:209m"
 #  define CUSTOM_210			"\033[38:5:210m"
 #  define CUSTOM_211			"\033[38:5:211m"
@@ -346,7 +346,7 @@
 #  define CUSTOM_217			"\033[38:5:217m"
 #  define CUSTOM_218			"\033[38:5:218m"
 #  define CUSTOM_219			"\033[38:5:219m"
-#  define CUSTOM_220			"\033[38:5:220m"
+#  define CUSTOM_220			"\001\033[38:5:220m\002"
 #  define CUSTOM_221			"\033[38:5:221m"
 #  define CUSTOM_222			"\033[38:5:222m"
 #  define CUSTOM_223			"\033[38:5:223m"
