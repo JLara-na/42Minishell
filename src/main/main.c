@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/28 00:13:17 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/30 19:49:49 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,9 @@ void	main_loop(t_shell	*shell)
 		{
 			set_sig_handler(SIG_IGN, 0);
 			ft_tree_in_order_arg(shell->token_tree, tokenize_node, shell);
-			if (g_signal_data != SIGINT)
-			{
-				ft_tree_in_order_arg(shell->token_tree, expand_token, shell);
-				set_sig_handler(SIG_IGN, 0);
-				exe_minishell_recursive(shell->token_tree);
-			}
+			ft_tree_in_order_arg(shell->token_tree, expand_token, shell);
+			set_sig_handler(SIG_IGN, 0);
+			exe_minishell_recursive(shell->token_tree);
 			ft_tree_in_order_arg(shell->token_tree, unlink_heredocs, shell);
 		}
 		ft_free_sarray(shell->default_env);
@@ -79,6 +76,7 @@ void	main_loop(t_shell	*shell)
 		free_tree(shell, shell->token_tree);
 		free(shell->splitter.str);
 		set_sig_handler(standard_handler, 0);
+		g_signal_data = 0;
 	}
 }
 

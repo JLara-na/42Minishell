@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:33:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/27 19:55:49 by jlara-na         ###   ########.fr       */
+/*   Updated: 2024/12/30 19:40:31 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	listen_and_write(t_token *token, char	*str, int fd)
 	char	*line;
 
 	set_sig_handler(heredoc_handler, 0);
+	g_signal_data = 0;
 	while (1)
 	{
 		line = readline(CUSTOM_220 ">" DEFAULT_SGR);
@@ -106,13 +107,13 @@ char	*do_heredoc(char *str, t_token	*token)
 	filename = new_temp_file();
 	fd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (fd == -1)
-		return (printf("OPEN ERROR\n"), NULL);
+		return (free(filename), printf("OPEN ERROR\n"), NULL);
 	pid = fork();
 	if (!pid)
 		listen_and_write(token, str, fd);
 	else
 		wait(&exit_status);
 	if (g_signal_data == SIGINT)
-		return (NULL);
+		return (free(filename), NULL);
 	return (filename);
 }
