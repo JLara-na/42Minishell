@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/27 23:27:54 by jlara-na         ###   ########.fr       */
+/*   Updated: 2025/01/11 21:03:09 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int		built_in_export(t_shell *shell, t_token	*token);
 
 //Utils
 
-char	*generate_prompt(void);
+char	*generate_prompt(t_shell	*shell);
 void	free_env(t_shell	*shell);
 void	set_sig_handler(void (handler)(int signum), int sigquit_status);
 void	standard_handler(int signum);
@@ -187,6 +187,7 @@ void	heredoc_handler(int signum);
 # define ESCAPE_2		2
 # define ESCAPE_126		126
 # define ESCAPE_127		127
+# define ESCAPE_130		130
 
 //--------------------------------CUSTOM HEADER-------------------------------//
 

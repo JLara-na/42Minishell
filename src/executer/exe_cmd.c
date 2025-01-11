@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 18:18:47 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/27 23:58:00 by jlara-na         ###   ########.fr       */
+/*   Updated: 2025/01/11 21:03:26 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int	set_exit_status(char	*cmd, int error_number)
 {
 	perror(cmd);
+	if (g_signal_data == SIGINT)
+		return (ESCAPE_130);
 	if (error_number == EACCES)
 		return (ESCAPE_126);
 	if (error_number == ENOENT)

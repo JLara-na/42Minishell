@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 22:57:35 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/27 23:01:38 by jlara-na         ###   ########.fr       */
+/*   Updated: 2025/01/11 21:18:36 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	built_in_exit(t_shell	*shell, t_token	*token)
 		}
 	}
 	free_env(shell);
-	printf(MSG_BYE);
+	if (!shell->child)
+		printf(MSG_BYE);
 	exit(exit_status);
 	return (EXIT_FAILURE);
 }

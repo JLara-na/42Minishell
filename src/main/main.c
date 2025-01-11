@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/30 19:49:49 by jlara-na         ###   ########.fr       */
+/*   Updated: 2025/01/11 21:10:49 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,29 @@
 
 int	g_signal_data = 0;
 
-char	*generate_prompt(void)
+char	*generate_prompt(t_shell	*shell)
 {
-	char	*prompt;
+	char	*pr;
 	char	*pwd;
 
 	pwd = NULL;
+	pr = NULL;
 	pwd = getcwd(pwd, PATH_MAX);
-	prompt = NULL;
-	prompt = ft_strjoinfree(CUSTOM_208 M_SHELL_PROMPT CUSTOM_87 "~", pwd, 1);
-	prompt = ft_strjoinfree(prompt, CUSTOM_208 "> " DEFAULT_SGR, 0);
-	return (prompt);
+	if (pwd != NULL)
+	{
+		pr = ft_strjoinfree(CUSTOM_208 M_SHELL_PROMPT CUSTOM_87 "~", pwd, 1);
+		pr = ft_strjoinfree(pr, CUSTOM_208 "> " DEFAULT_SGR, 0);
+		return (pr);
+	}
+	pwd = find_value(shell->enviroment, "PWD");
+	if (pwd != NULL)
+	{
+		pr = ft_strjoinfree(CUSTOM_208 M_SHELL_PROMPT CUSTOM_87 "~", pwd, 1);
+		pr = ft_strjoinfree(pr, CUSTOM_208 "> " DEFAULT_SGR, 0);
+		return (pr);
+	}
+	pr = ft_strdup(CUSTOM_208 M_SHELL_PROMPT "> " CUSTOM_87);
+	return (pr);
 }
 
 void	free_token(void	*data)
@@ -76,7 +88,6 @@ void	main_loop(t_shell	*shell)
 		free_tree(shell, shell->token_tree);
 		free(shell->splitter.str);
 		set_sig_handler(standard_handler, 0);
-		g_signal_data = 0;
 	}
 }
 
@@ -92,6 +103,5 @@ int	main(int ac, char **av, char **envp)
 	ft_bzero(&shell, sizeof(t_shell));
 	import_env(&shell, envp);
 	main_loop(&shell);
-	printf(MSG_BYE);
 	return (EXIT_SUCCESS);
 }
