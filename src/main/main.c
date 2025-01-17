@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:34 by jlara-na          #+#    #+#             */
-/*   Updated: 2025/01/11 21:10:49 by jlara-na         ###   ########.fr       */
+/*   Updated: 2025/01/15 03:20:43 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*generate_prompt(t_shell	*shell)
 		pr = ft_strjoinfree(pr, CUSTOM_208 "> " DEFAULT_SGR, 0);
 		return (pr);
 	}
-	pr = ft_strdup(CUSTOM_208 M_SHELL_PROMPT "> " CUSTOM_87);
+	pr = ft_strdup(CUSTOM_208 M_SHELL_PROMPT "> " CUSTOM_87 DEFAULT_SGR);
 	return (pr);
 }
 

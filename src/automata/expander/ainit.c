@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:06:45 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/01 21:55:04 by jlara-na         ###   ########.fr       */
+/*   Updated: 2025/01/17 02:25:50 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 void	expander_alphabet_init(t_automata *a)
 {
-	a->alphabet = malloc(5 * (sizeof(char *)));
-	a->alphabet[0] = ft_strdup(" \t\n");
+	a->alphabet = malloc(6 * (sizeof(char *)));
+	a->alphabet[0] = ft_strdup(" \t\n.:;@-+=#/(){}[]^*\\");
 	a->alphabet[1] = ft_strdup("\"");
 	a->alphabet[2] = ft_strdup("\'");
 	a->alphabet[3] = ft_strdup("$");
-	a->alphabet[4] = NULL;
+	a->alphabet[4] = ft_strdup("?");
+	a->alphabet[5] = NULL;
 }
 
 void	expander_errors_init(t_automata *a)
@@ -39,8 +40,12 @@ void	expander_tactions_init(t_automata *a)
 	a->fta[EX_DOUBLEQ][EX_DOUBLEQ] = insert_chr;
 	a->fta[EX_SINGLEQ][EX_SINGLEQ] = insert_chr;
 	a->fta[EX_DOLLAR_IN][EX_DOUBLEQ] = insert_chr;
+	a->fta[EX_DOLLAR_IN][EX_LOOKING] = insert_chr;
+	a->fta[EX_DOLLAR_OUT][EX_LOOKING] = insert_chr;
 	a->fta[EX_NAME_OUT][EX_LOOKING] = insert_chr;
 	a->fta[EX_NAME_IN][EX_DOUBLEQ] = insert_chr;
+	a->fta[EX_QMARK_OUT][EX_LOOKING] = insert_chr;
+	a->fta[EX_QMARK_IN][EX_LOOKING] = insert_chr;
 }
 
 void	expander_automata_init(t_automata *a, void *data)

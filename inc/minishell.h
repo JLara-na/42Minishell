@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:40:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2025/01/11 21:03:09 by jlara-na         ###   ########.fr       */
+/*   Updated: 2025/01/17 01:36:05 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ typedef struct s_var
 //Enviroment funcions
 
 void	import_env(t_shell	*shell, char **env);
-void	add_new_var(t_list	*enviroment, t_var	*newvar);
+void	add_new_var(t_shell	*shell, t_var	*newvar);
 t_bool	find_var(void *content, void *context);
 char	*find_value(t_list	*env, char	*name);
 t_var	*create_var(char *name, char *value);
@@ -141,7 +141,7 @@ void	exe_minishell_recursive(t_tree	*tree);
 void	wait_childs(t_token	*token, int twice);
 void	child_pipe_redir(t_tree *node, t_token *token, int pid, int fd[2]);
 void	exe_comand_node(t_token	*token, int pid);
-void	stdout_redirection(t_token	*token);
+int		stdout_redirection(t_token	*token);
 void	stdin_redirection(t_token	*token);
 char	*do_heredoc(char *str, t_token	*token);
 void	unlink_heredocs(void	*token_ptr, void	*shell_ptr);

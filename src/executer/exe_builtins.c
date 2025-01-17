@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 04:02:47 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/27 20:44:00 by jlara-na         ###   ########.fr       */
+/*   Updated: 2025/01/17 01:59:13 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ void	exe_built_in_with_redirs(t_shell	*shell, t_token	*token)
 	saved_std[0] = dup_stdin();
 	saved_std[1] = dup_stdout();
 	stdin_redirection(token);
-	stdout_redirection(token);
-	exe_built_in(token, shell);
+	if (!stdout_redirection(token))
+		exe_built_in(token, shell);
+	else
+		shell->exit_status = 1;
 	stdin_stdout_reset(token, saved_std);
 }

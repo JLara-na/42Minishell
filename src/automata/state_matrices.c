@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:28:01 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/09/29 00:47:39 by jlara-na         ###   ########.fr       */
+/*   Updated: 2025/01/14 20:42:08 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,20 @@ int	splitter_get_state(int i, int j)
 	return (states[i][j]);
 }
 
-//	0	1	2   3	4	Column characters
-//	/s	"   '	$   ^
+//	0	1	2   3	4	5	Column characters
+//	/s	"   '	$   ok	else
 int	expander_get_state(int i, int j)
 {
-	const int	states[][5] = {
-	{0, 1, 2, 3, 0},	// 0 Looking
-	{1, 0, 1, 4, 1},	// 1 Open double quotes
-	{2, 2, 0, 2, 2},	// 2 Open single quotes
-	{0, 1, 2, 3, 5},	// 3 Dollar outside
-	{1, 0, 1, 4, 6},	// 4 Dollar inside 
-	{0, 1, 2, 3, 5},	// 5 Name	outside
-	{1, 0, 1, 4, 6},	// 6 Name	inside
+	const int	states[][6] = {
+	{0, 1, 2, 3, 0, 0},	// 0 Looking
+	{1, 0, 1, 4, 1, 1},	// 1 Open double quotes
+	{2, 2, 0, 2, 2, 2},	// 2 Open single quotes
+	{0, 1, 2, 3, 7, 5},	// 3 Dollar outside
+	{1, 0, 1, 4, 8, 6},	// 4 Dollar inside
+	{0, 1, 2, 3, 0, 5},	// 5 Name	outside
+	{1, 0, 1, 4, 1, 6},	// 6 Name	inside
+	{0, 1, 2, 3, 0, 0},	// 7 ?		outside
+	{1, 0, 1, 4, 1, 1},	// 8 ?		inside
 	};
 
 	return (states[i][j]);

@@ -6,13 +6,13 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:42:25 by jlara-na          #+#    #+#             */
-/*   Updated: 2024/12/30 19:52:56 by jlara-na         ###   ########.fr       */
+/*   Updated: 2025/01/17 02:23:14 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	stdout_redirection(t_token	*token)
+int	stdout_redirection(t_token	*token)
 {
 	int	i;
 
@@ -30,11 +30,13 @@ void	stdout_redirection(t_token	*token)
 						O_CREAT | O_TRUNC | O_WRONLY, 0644);
 			if (token->outfiles[i + 1])
 				close(token->last_outf_fd);
+			if (access(token->outfiles[i], W_OK))
+				return (perror(token->outfiles[i]), 1);
 		}
 	}
 	if (token->last_outf_fd != -1)
 		dup2(token->last_outf_fd, STDOUT_FILENO);
-	return ;
+	return (0);
 }
 
 void	stdin_stdout_reset(t_token	*token, int saved_std[2])
@@ -90,14 +92,21 @@ void	child_pipe_redir(t_tree *node, t_token *token, int pid, int fd[2])
 	close(fd[READ_END]);
 }
 
+void	execute_in_father(t_token	*token)
+{
+	stdin_redirection(token);
+	if (!stdout_redirection(token))
+		exe_cmd_or_built(token->shell, token);
+	else
+		exit(EXIT_FAILURE);
+}
+
 void	exe_comand_node(t_token	*token, int pid)
 {
 	if (!token->shell->child)
 	{
 		if (is_built_in(token->cmd))
-		{
 			exe_built_in_with_redirs(token->shell, token);
-		}
 		else
 		{
 			pid = fork();
@@ -105,16 +114,14 @@ void	exe_comand_node(t_token	*token, int pid)
 			{
 				set_sig_handler(SIG_DFL, 0);
 				stdin_redirection(token);
-				stdout_redirection(token);
-				exe_path_cmd(token->shell, token);
+				if (!stdout_redirection(token))
+					exe_path_cmd(token->shell, token);
+				else
+					exit(EXIT_FAILURE);
 			}
 			wait_childs(token, FALSE);
 		}
 	}
 	else
-	{
-		stdin_redirection(token);
-		stdout_redirection(token);
-		exe_cmd_or_built(token->shell, token);
-	}
+		execute_in_father(token);
 }
