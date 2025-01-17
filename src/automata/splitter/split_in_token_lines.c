@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 21:16:50 by jlara-na          #+#    #+#             */
-/*   Updated: 2025/01/17 17:45:26 by jlara-na         ###   ########.fr       */
+/*   Updated: 2025/01/17 19:48:12 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	split_in_token_lines(t_shell	*shell)
 	else
 	{
 		printf(RED "%s\n" DEFAULT_SGR, shell->splitter.errors[a_state]);
-		shell->exit_status = 127;
+		if (!ft_samestr(shell->splitter.str, ""))
+			shell->exit_status = 127;
 		return (free_alph_err(&shell->splitter), 0);
 	}
 }
