@@ -6,7 +6,7 @@
 /*   By: jlara-na <jlara-na@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:09:12 by jlara-na          #+#    #+#             */
-/*   Updated: 2025/01/17 02:24:11 by jlara-na         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:27:40 by jlara-na         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,12 @@ void	insert_var(t_automata *a, void *data)
 	else
 		str = find_value(token->shell->enviroment, var);
 	if (str == NULL && ft_samestr("?", var))
-		str = ft_itoa(token->shell->exit_status);
+	{
+		if (g_signal_data != SIGINT)
+			str = ft_itoa(token->shell->exit_status);
+		else
+			str = ft_itoa(130);
+	}
 	free(var);
 	*pointer = ft_strjoinfree(*pointer, str, 2);
 }
